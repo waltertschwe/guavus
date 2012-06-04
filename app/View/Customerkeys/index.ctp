@@ -2,30 +2,51 @@
 <html>
 	<head>
 		<title>Customer Keys</title>
-		<link rel="stylesheet" href="css/datatables_page.css"  />
-		<link rel="stylesheet" href="css/datatables_table.css" />
-		<link rel="stylesheet" href="css/core.css" />
-		<script type="text/javascript" language="javascript" src="js/jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+		<?php echo $this->Html->css('datatables_page.css');
+		      echo $this->Html->css('datatables_table.css');
+			  echo $this->Html->css('core.css');
+			  echo $this->Html->script(array('jquery-1.7.2.min.js'));
+			  echo $this->Html->script(array('jquery.dataTables.js'));
+		?>
 		<script type="text/javascript" charset="utf-8">
 				$(document).ready(function() {
-				oTable = $('#example').dataTable({
+				 oTable = $('#example').dataTable({
+				 	//"sScrollY": "400px",
+					"iDisplayLength": 10,
 					"sDom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
-     	 		    "aaSorting": [[1,'asc']],
-					"sPaginationType": "two_button"
+     	 		    "aaSorting": [[0,'asc']],
+					"sPaginationType": "two_button",
 				});
 			} );
 		</script> 
 	</head>
 <body id="dt_example">
-<div id="container" style="width:80%">	
+<div id="container" style="width:90%">	
 	<div id="header">
 		<div id="logo">
-		 <img src="img/guavus-lounge.png" /> 
+		 	<img src="/guavus/cakephp/img/guavus-lounge.png" /> 
+		</div><!-- Header End -->
+		<div id="new-key">
+			<a href="/guavus/cakephp/customerkeys/add"><img src="/guavus/cakephp/img/new-key-button.png" /></a>
 		</div>
-	</div><!-- Header End -->
-<div class="full_width big">
+		<div id="nav">
+			<ul>
+				<li><img src="/guavus/cakephp/img/keys-red.png" /></li>
+				<a href=""><li><img src="/guavus/cakephp/img/products.png" /></li></a>
+				<a href=""><li><img src="/guavus/cakephp/img/activity.png" /></li></a>
+			</ul>
+		</div>
+	</div>
+	<hr/>
+<!--<div class="full_width big">
 	Access Keys
+</div>
+-->
+<div id="title">
+	Access Keys
+</div>
+<div id="flash">
+<?php echo $this->Session->flash(); ?>
 </div>
 <div id="demo">
 	<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
