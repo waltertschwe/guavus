@@ -31,4 +31,14 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+	function beforeValidate() {
+		foreach($this->hasAndBelongsToMany as $k=>$v) {
+			if(isset($this->data[$k][$k]))
+			{
+
+				$this->data[$this->alias][$k] = $this->data[$k][$k];
+			}
+		}
+	}	
+	
 }
