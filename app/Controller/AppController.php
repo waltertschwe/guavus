@@ -32,4 +32,18 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+	
+	function beforeRender()
+    {
+        $model = Inflector::singularize($this->name);
+        foreach($this->{$model}->hasAndBelongsToMany as $k=>$v) {
+            if(isset($this->{$model}->validationErrors[$k]))
+            {
+                $this->{$model}->{$k}->validationErrors[$k] = $this->{$model}->validationErrors[$k];
+            }
+        } 
+
+    }
+		
+	
 }
