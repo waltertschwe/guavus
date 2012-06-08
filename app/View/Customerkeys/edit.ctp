@@ -23,7 +23,7 @@
 		<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
 		</div>
 		<div id="new-key">
-			<a href=""><img src="/guavus/cakephp/img/new-key-button.png" /></a>
+			
 		</div>
 		<div id="nav">
 			<ul>
@@ -40,6 +40,7 @@
  
 	echo $this->element('customerkeys/form');
 	echo $this->Form->end(__('Save'));
+	
 ?>
 	</div>
 	</div>

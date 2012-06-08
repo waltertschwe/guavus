@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8" />
 		<title>Customer Keys</title>
 		<?php echo $this->Html->css('datatables_page.css');
 		      echo $this->Html->css('datatables_table.css');
@@ -39,24 +40,30 @@
 <div id="container" style="width:90%">	
 	<div id="header">
 		<div id="logo">
-		 	<img src="/guavus/cakephp/img/guavus-lounge.png" /> 
+		 	<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
 		</div><!-- Header End -->
 		<div id="new-key">
-			<a href="/guavus/cakephp/customerkeys/add"><img src="/guavus/cakephp/img/new-key-button.png" /></a>
+		 <?php	echo $this->Html->link(
+		 				$this->Html->image('new-key-button.png'),
+    					'add/',
+						array('escape' => false));
+		?>
 		</div>
 		<div id="nav">
 			<ul>
-				<li><img src="/guavus/cakephp/img/keys-red.png" /></li>
-				<a href=""><li><img src="/guavus/cakephp/img/products.png" /></li></a>
-				<a href=""><li><img src="/guavus/cakephp/img/activity.png" /></li></a>
+				<li>
+					<?php echo $this->Html->image('keys-red.png', array('alt' => 'keys-red')); ?>
+				</li>
+				<li>
+					<a href=""><?php echo $this->Html->image('products.png', array('alt' => 'products')); ?></a>
+				</li>
+				<li>
+					<a href=""><?php echo $this->Html->image('activity.png', array('alt' => 'activity')); ?></a>
+				</li>
 			</ul>
 		</div>
 	</div>
 	<hr/>
-<!--<div class="full_width big">
-	Access Keys
-</div>
--->
 <div id="title">
 	Access Keys
 </div>
@@ -67,6 +74,7 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
 	<thead>
 	<tr>
+		<th>Action</th>
 		<th>Customer</th>
 		<th>Key</th>
 		<th>Products</th>
@@ -77,6 +85,15 @@
 
 <?php foreach ($customerkeys as $customerkey) { ?>
 	<tr class="gradeX">
+		<td>
+			 <?php 
+			 		$customerId = $customerkey['Customerkey']['id'];
+			 		echo $this->Html->link(
+		 				$this->Html->image('edit-icon.png', array('alt' => 'activity', 'width' => '25', 'height' => '25')),
+    					'edit/' . $customerId,
+						array('escape' => false));
+			?>	
+		</td>
  		<td class="center"><?php echo $customerkey['Customerkey']['customer']; ?></td>
  		<td class="center"><?php echo $customerkey['Customerkey']['accesskey']; ?></td>
  		<td><?php /*
@@ -90,6 +107,7 @@
 <?php } ?>
 <tbody>
 	<tfoot>
+		<th>Action</th>
 		<th>Customer</th>
 		<th>Key</th>
 		<th>Products</th>

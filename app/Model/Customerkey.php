@@ -33,7 +33,10 @@ class Customerkey extends AppModel {
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => 'A key is required'
-            )
+            ),
+            'unique' => array(
+        		'rule' => 'isUnique',
+        		'message' => 'That key already exists. Please enter a unique key.')
         ),
         'Product' => array(
                'multiple' => array(

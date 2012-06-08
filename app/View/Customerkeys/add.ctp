@@ -28,7 +28,7 @@
 		</div>
 		<div id="nav">
 			<ul>
-				<li><img src="/guavus/cakephp/img/keys-red.png" /></li>
+				<li><?php echo $this->Html->image('keys-red.png'); ?></li>
 				<a href=""><li><img src="/guavus/cakephp/img/products.png" /></li></a>
 				<a href=""><li><img src="/guavus/cakephp/img/activity.png" /></li></a>
 			</ul>
@@ -39,7 +39,8 @@
 	<div id="centered">
 <?php echo 
 			$this->element('customerkeys/form');
-			 echo $this->Form->end(__('Save'));
+			echo $this->Form->end(__('Save'));
+			//echo $this->Form->end('save-button.png');
 ?>
 	</div>	
 	</div>

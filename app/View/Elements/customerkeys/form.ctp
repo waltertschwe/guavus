@@ -15,10 +15,19 @@
       
       <div id='products'><label>Product</label>  
       	<div class="groups">
+      		
  <?php  
     foreach (array_keys($groupProducts) as $key) {
+    	// &#8594; &gt;
+    	// <a href='#' class='product-expand'>&#8594;</a>
 		echo "<div class='prod-group'>";
-		echo "<span><input class='group-check' type='checkbox' name='_group'/>".$key."<a href='#' class='product-expand'>&gt;</a></span>";
+		echo "<span><input class='group-check' type='checkbox' name='_group'/>". $key . "&nbsp;" .
+			$this->Html->link(
+		 				$this->Html->image('right.png', array('alt' => 'right', 'width' => '10', 'height' => '10')),
+    					'',
+						array('escape' => false, 'class' => 'product-expand'))
+		.
+		"</span>";
 		echo $this->Form->input('Solution', array('div'=>array('class'=>'prod-items'),'label'=>false,'multiple' => 'checkbox','hiddenField'=>false,'options'=>$groupProducts[$key]));
 		echo "</div>";
 		echo "<div class='clearfix'></div>";

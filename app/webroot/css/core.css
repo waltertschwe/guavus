@@ -24,6 +24,7 @@ p {text-align:center}
 }
 .submit { 
   text-align:right;
+  padding-right:70px;
 }
 #content {
 	float:left;
@@ -132,16 +133,18 @@ p {text-align:center}
     
     }  
     .submit input {  
-        width: auto;  
-        padding: 9px 15px;  
-        background: #617798;  
-        border: 0;  
-        font-size: 14px;  
-        color: #FFFFFF;  
-        -moz-border-radius: 5px;  
-        -webkit-border-radius: 5px;  
-        }  
-
+       width: auto;  
+       padding: 9px 15px;  
+       background: #617798;  
+       border: 0;  
+       font-size: 14px;  
+       color: #FFFFFF;  
+       -moz-border-radius: 5px;  
+       -webkit-border-radius: 5px; 
+         
+     }  
+     color: #ff0000;
+   
 /* END FOR BROWSERS THAT DON'T SUPPORT CSS3 */
 
 .form{
@@ -206,9 +209,9 @@ p {text-align:center}
 }
 
 .form .submit input{
-	font-family: Verdana;    
+	/*font-family: Verdana;    
 	font-size:1em;
-	margin-top: 0.3em;
+	margin-top: 0.3em;*/
 }
 
 .formerror{
@@ -219,4 +222,8 @@ p {text-align:center}
 	
 .prod-items {
 	display:none;
+}
+
+.form .error-message {
+	color: red;
 }
