@@ -31,4 +31,28 @@ App::uses('Helper', 'View');
  * @package       app.View.Helper
  */
 class AppHelper extends Helper {
+	function displayCustomerIndexProducts($solutions) {
+		$groups = array();
+		$count = array();
+		$disp = "";
+		foreach ($solutions as $solution) {
+			$key = $solution['product'];
+			if (array_key_exists($key,$groups) ) {
+				$groups[$key] .= "<li>".$solution['name']."</li>";
+				$count[$key] += 1;
+			} else {
+				$groups[$key] = "<li>".$solution['name']."</li>";
+				$count[$key] = 1;
+			}		
+		}
+		$keys = array_keys($groups);
+		foreach ($keys as $key) {
+			$disp .= "<div class='prod-group'>
+						<a href='#' class='product-expand'>$key</a>($count[$key])
+						<ul class='prod-items'>$groups[$key]</ul>
+					</div>";
+		}
+		return $disp;
+	}
+	
 }

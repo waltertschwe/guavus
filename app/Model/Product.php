@@ -21,7 +21,6 @@ class Product extends AppModel {
 			
 			)		
 	);
-	  
-		
+	
 }
 	

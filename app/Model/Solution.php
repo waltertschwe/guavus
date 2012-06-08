@@ -2,6 +2,16 @@
 // app/Model/Solution.php
 class Solution extends AppModel {
     public $name = 'Solution';
+/*
+	public $hasOne = array(
+        'Product' => array(
+            'className'    => 'Product',
+            'foreignKey'   => 'solution_id',
+            'dependent'    => true
+        )
+    );
+ * 
+ */
     public $validate = array(
         'name' => array(
             'required' => array(
@@ -9,7 +19,7 @@ class Solution extends AppModel {
                 'message' => 'A name is required'
             )
         ),
-        'products' => array(
+        'product' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => 'A product is required'

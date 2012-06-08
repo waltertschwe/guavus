@@ -19,3 +19,18 @@ CREATE TABLE solutions (
     video_type VARCHAR(15),
     notes TEXT
 );
+
+CREATE TABLE products (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(50),
+);
+
+CREATE TABLE customer_products (
+    customerkey_id INT, 
+    product_id INT
+);
+
+CREATE TABLE solution_products (
+    solution_id INT, 
+    product_id INT
+);

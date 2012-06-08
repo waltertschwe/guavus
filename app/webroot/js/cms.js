@@ -1,50 +1,72 @@
+var guavus = {}
+guavus.product = function() {
+	 
+	
+	var handleExpand = function() {
+		$('#products').on('click','.product-expand',function(event) {
+			event.preventDefault();
+			
+			$(this).closest('.prod-group').find('.prod-items').toggle();
+			
+			
+		})		
+		
+	}
+	var handleGroupCheck = function () {
+		$('#products').on('click','.group-check',function(event) {
+			$groupItems = $(this).closest('.prod-group').find(".prod-items input[type='checkbox']");
+			if ($(this).is(':checked')) {
+				$groupItems.attr('checked',true);
+    		} else {
+    			$groupItems.attr('checked',false);
 
+    		}
+
+		});
+		
+	}
+	var checkGroupIfItemsAre = function ($group) {
+
+		if ($group.find(".prod-items input[type='checkbox']:not(:checked)").size()==0) {
+			$group.find('.group-check').attr('checked',true);
+		}
+	}
+	var checkGroups = function () {
+		$('.prod-group').each(function(i,el) {
+			checkGroupIfItemsAre($(el))
+		})
+	}
+	var handleIndividualCheck = function() {
+		$('#products').on('click',".prod-items input[type='checkbox']",function(event) {
+			$groupCheck = $(this).closest('.prod-group').find(".group-check");
+			if ($(this).is(':checked')) {
+				checkGroupIfItemsAre($(this).closest('.prod-group'));
+			} else {
+				$groupCheck.attr('checked',false);
+			}
+		});	
+	}
+	return {
+		init : function() {
+			handleExpand();
+			handleGroupCheck();
+			handleIndividualCheck();
+			checkGroups();
+		}
+		
+	}
+}()
  
 $(document).ready(function() { 
+ 	$( ".datepicker" ).datepicker({
+		showOn: "button",
+		buttonImage: "/guavus/cakephp/images/calendar.gif",
+		buttonImageOnly: true,
+		dateFormat: "yy-mm-dd"
+	}).attr("readOnly", true);
  
-    //select all the a tag with name equal to modal
-    $('a[name=modal]').click(function(e) {
-        //Cancel the link behavior
-        e.preventDefault();
-        //Get the A tag
-        var id = $(this).attr('href');
-     
-        //Get the screen height and width
-        var maskHeight = $(document).height();
-        var maskWidth = $(window).width();
-     
-        //Set height and width to mask to fill up the whole screen
-        $('#mask').css({'width':maskWidth,'height':maskHeight});
-         
-        //transition effect    
-        $('#mask').fadeIn(1000);   
-        $('#mask').fadeTo("slow",0.8); 
-     
-        //Get the window height and width
-        var winH = $(window).height();
-        var winW = $(window).width();
-               
-        //Set the popup window to center
-        $(id).css('top',  winH/2-$(id).height()/2);
-        $(id).css('left', winW/2-$(id).width()/2);
-     
-        //transition effect
-        $(id).fadeIn(2000);
-     
-    });
-     
-    //if close button is clicked
-    $('.window .close').click(function (e) {
-        //Cancel the link behavior
-        e.preventDefault();
-        $('#mask, .window').hide();
-    });    
-     
-    //if mask is clicked
-    $('#mask').click(function () {
-        $(this).hide();
-        $('.window').hide();
-    });        
+	guavus.product.init();
+   
      
 });
  

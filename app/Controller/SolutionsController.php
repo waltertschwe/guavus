@@ -8,7 +8,14 @@ class SolutionsController extends AppController {
 	
 		}
 	}	
-
+	private function getCategories() {
+		$this->Solution->recursive = 0;
+		
+		$array = $this->Solution->find('all',array('fields'=>'DISTINCT category','conditions' => array("not" => array ( "category" => null)),'order'=>array('category')));
+		return "[".implode(",",array_map(
+			function($var){return "'".$var['Solution']['category']."'";
+		},$array))."]";
+	}
 
 	
 	private function uploadFile($field) {
@@ -43,10 +50,13 @@ class SolutionsController extends AppController {
     }
 
     public function index() {
-    	    	$this->layout = 'lame2';
 		
-        $this->Solution->recursive = 0;
-        $this->set('solutions', $this->paginate());
+       // $this->Solution->recursive = 0;
+       // $this->set('solutions', $this->paginate());
+       $this->layout = 'lame2';
+        $solutions = $this->Solution->find('all');
+		$this->layout = 'viewlayout';
+        $this->set('solutions', $solutions);
     }
 
     public function view($id = null) {
@@ -58,15 +68,19 @@ class SolutionsController extends AppController {
     }
 
     public function add() {
+    	$this->layout = 'viewlayout';
     	$this->Solution->recursive = 0;
         $this->set('solutions', $this->paginate());
+	//	$this->set('jscatarray',$this->getCategories());
 		
-    	$this->layout = 'lame';
-        if ($this->request->is('post')) {
-			
+	//	$products = $this->Solution->Product->find('list');
+	//	$this->set(compact('products'));
+		
+        if ($this->request->is('post')) {	
 			$solution = $this->request->data;
+		
+			// TODO: setup solution to products association
 			if (is_array($solution['Solution']['products'])) {
-			
       			$solution['Solution']['products'] = implode(',',$solution['Solution']['products']);
 			}		
 			
@@ -85,21 +99,23 @@ class SolutionsController extends AppController {
     }
 
     public function edit($id = null) {
+    	 //$this->layout = 'viewlayout';
+		$this->layout = 'lame';
     	$this->Solution->recursive = 0;
         $this->set('solutions', $this->paginate());
+		//$this->set('jscatarray',$this->getCategories());
 		
         $this->Solution->id = $id;
-		    $this->layout = 'lame';
         if (!$this->Solution->exists()) {
             throw new NotFoundException(__('Invalid solution'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
         	
 			$solution = $this->request->data;
-			if (is_array($solution['Solution']['products'])) {
+			//if (is_array($solution['Solution']['products'])) {
 			
-      			$solution['Solution']['products'] = implode(',',$solution['Solution']['products']);
-			}
+      		//	$solution['Solution']['products'] = implode(',',$solution['Solution']['products']);
+			//}
         	$this->Solution->set($solution);
 			
             if ($this->Solution->validates()) {
@@ -117,7 +133,7 @@ class SolutionsController extends AppController {
             }
         } else {
             $this->request->data = $this->Solution->read(null, $id);
-			$this->request->data['Solution']['products'] = explode(",",$this->request->data['Solution']['products']);
+			//$this->request->data['Solution']['products'] = explode(",",$this->request->data['Solution']['products']);
 			
 			
         }

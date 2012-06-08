@@ -6,9 +6,21 @@
 		      echo $this->Html->css('datatables_table.css');
 			  echo $this->Html->css('core.css');
 			  echo $this->Html->script(array('jquery-1.7.2.min.js'));
+			  
 			  echo $this->Html->script(array('jquery.dataTables.js'));
+			  
 		?>
 		<script type="text/javascript" charset="utf-8">
+				var handleIndexExpand = function() {
+					$('tbody').on('click','.product-expand',function(event) {
+					event.preventDefault();
+					$(this).closest('.prod-group').find('.prod-items').toggle();
+			
+			
+					})		
+		
+				}
+		
 				$(document).ready(function() {
 				 oTable = $('#example').dataTable({
 				 	//"sScrollY": "400px",
@@ -17,7 +29,10 @@
      	 		    "aaSorting": [[0,'asc']],
 					"sPaginationType": "two_button",
 				});
+				handleIndexExpand();
 			} );
+			
+
 		</script> 
 	</head>
 <body id="dt_example">
@@ -64,8 +79,11 @@
 	<tr class="gradeX">
  		<td class="center"><?php echo $customerkey['Customerkey']['customer']; ?></td>
  		<td class="center"><?php echo $customerkey['Customerkey']['accesskey']; ?></td>
- 		<td><?php 
- 		echo implode(", ",array_map(function($arr) {return $arr['name'];},$customerkey['Product']));?></td>
+ 		<td><?php /*
+ 		var_dump($customerkey['Solution']);
+ 		echo implode(", ",array_map(function($arr) {return $arr['name'];},$customerkey['Solution']));*/
+ 		echo $this->App->displayCustomerIndexProducts($customerkey['Solution']);
+ 		?></td>
  		<td><?php echo $customerkey['Customerkey']['expires']; ?></td>
  		<td><?php echo $customerkey['Customerkey']['notes']; ?></td>
  	</tr>

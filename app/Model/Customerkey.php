@@ -3,12 +3,12 @@
 class Customerkey extends AppModel {
     public $name = 'Customerkey';
 	public $hasAndBelongsToMany = array(
-	 	'Product' =>
+	 	'Solution' =>
 	 		array(
-				'className' => 'Product',
-				'joinTable' => 'customer_products',
+				'className' => 'Solution',
+				'joinTable' => 'customer_solutions',
 				'foreignKey' => 'customerkey_id',
-				'associatingForeignKey' => 'product_id',
+				'associatingForeignKey' => 'solution_id',
 				'unique' => true,
 				'conditions'             => '',
                 'fields'                 => '',
@@ -20,7 +20,7 @@ class Customerkey extends AppModel {
                 'insertQuery'            => ''
 			
 			)
-	);	
+	);		
 	
     public $validate = array(
         'customer' => array(
