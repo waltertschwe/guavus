@@ -31,8 +31,16 @@ guavus.product = function() {
 			$group.find('.group-check').attr('checked',true);
 		}
 	}
+	var updateCounter = function($group) {
+		
+		count = $group.find(".prod-items input[type='checkbox']:checked").size();
+		$group.find('.group-count').html('('+count+')'); 
+		
+	}	
+	
 	var checkGroups = function () {
 		$('.prod-group').each(function(i,el) {
+			updateCounter($(el))
 			checkGroupIfItemsAre($(el))
 		})
 	}
@@ -41,8 +49,12 @@ guavus.product = function() {
 			$groupCheck = $(this).closest('.prod-group').find(".group-check");
 			if ($(this).is(':checked')) {
 				checkGroupIfItemsAre($(this).closest('.prod-group'));
+				updateCounter($(this).closest('.prod-group'));
+
 			} else {
 				$groupCheck.attr('checked',false);
+				updateCounter($(this).closest('.prod-group'));
+
 			}
 		});	
 	}
@@ -67,6 +79,6 @@ $(document).ready(function() {
  
 	guavus.product.init();
    
-     
+
 });
  
