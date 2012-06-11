@@ -7,7 +7,6 @@
 		      echo $this->Html->css('datatables_table.css');
 			  echo $this->Html->css('core.css');
 			  echo $this->Html->script(array('jquery-1.7.2.min.js'));
-			  
 			  echo $this->Html->script(array('jquery.dataTables.js'));
 			  
 		?>
@@ -27,7 +26,7 @@
 				 	//"sScrollY": "400px",
 					"iDisplayLength": 10,
 					"sDom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
-     	 		    "aaSorting": [[0,'asc']],
+     	 		    "aaSorting": [[1,'asc']],
 					"sPaginationType": "two_button",
 				});
 				handleIndexExpand();
@@ -55,10 +54,17 @@
 					<?php echo $this->Html->image('keys-red.png', array('alt' => 'keys-red')); ?>
 				</li>
 				<li>
-					<a href=""><?php echo $this->Html->image('products.png', array('alt' => 'products')); ?></a>
-				</li>
+					<?php echo $this->Html->link( 
+					          		$this->Html->image('products.png', array('alt' => 'products')),
+					          		'../solutions',
+					          		array('escape' => false));
+					 ?>
 				<li>
-					<a href=""><?php echo $this->Html->image('activity.png', array('alt' => 'activity')); ?></a>
+					<?php echo $this->Html->link(
+							       $this->Html->image('activity.png', array('alt' => 'activity')),
+							       '../activity',
+							       array('escape' => false));
+					?>
 				</li>
 			</ul>
 		</div>

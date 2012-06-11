@@ -1,3 +1,6 @@
+
+
+
 	<div id="container">
 		<div id="header">
 			<h1><a href="http://cakephp.org">CakePHP: the rapid development php framework</a></h1>

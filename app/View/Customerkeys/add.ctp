@@ -13,8 +13,18 @@
 			  #echo $this->Html->script(array('jquery.ui.datepicker.js'));
 			  echo $this->Html->script(array('cms.js'));
 			  
+			 			  
+			  $url = $this->Html->url(array('controller'=>'customerkeys',
+    					'action'=>'index'));			  
 		?>
-		
+		<script type="text/javascript">			
+			$(document).ready(function() { 
+	 
+    			$('.cancel button').click(function(event) {
+			    location.href='<?php echo $url;?>' 			
+     		});
+	 		})
+		</script>		
  
 	</head>
 <body>
@@ -39,8 +49,13 @@
 	<div id="centered">
 <?php echo 
 			$this->element('customerkeys/form');
-			echo $this->Form->end(__('Save'));
-			//echo $this->Form->end('save-button.png');
+		echo "<div class='buttons'>";
+		echo '<div class="cancel">';	
+			echo $this->Form->button('Cancel', array('type'=>'button'));	
+		echo '</div>';
+		echo $this->Form->input('Save', array('type'=>'submit','label'=>false));	
+		echo "</div>";
+		echo $this->Form->end();
 ?>
 	</div>	
 	</div>

@@ -1,6 +1,8 @@
 <?php 	
 class SolutionsController extends AppController {
-	
+	public function beforeFilter() {
+		$this->layout = 'admin';
+    }
 	
 	private function handleCheckBox () {
 		if (is_array($this->request->data['Solution']['products'])) {
@@ -19,24 +21,22 @@ class SolutionsController extends AppController {
 
 	
 	private function uploadFile($field) {
-		$target = 'c:/xampp2/htdocs/guavusImage/';
-		$fileArray = $this->request->data['Solution'][$field];
-	
+		$target = '/opt/files/';
+		$fileArray = $this->request->data['Solution'][$field];		
+		//var_dump($fileArray);
+		//exit();
 		if ($fileArray['error'] > 0) {
-									
-			
 			//$this->Solution->validationErrors[$field] = "Submit a file please";
-			
-			
-			
 		} else {
 			//$now = date('Y-m-d-His');
 			$filename = $fileArray['name'];
-      		var_dump('$fileArray');
+			
 			move_uploaded_file($fileArray['tmp_name'],
 			$target.$filename);
+			
 			$this->request->data['Solution'][$field.'_name'] = $filename;
 			$this->request->data['Solution'][$field.'_type'] = $fileArray['type'];
+	
 			return true;
 			
 		}
@@ -44,18 +44,13 @@ class SolutionsController extends AppController {
 	}
 	
 
-
-    public function beforeFilter() {
-
-    }
-
     public function index() {
 		
        // $this->Solution->recursive = 0;
        // $this->set('solutions', $this->paginate());
-       $this->layout = 'lame2';
+       //$this->layout = 'lame2';
         $solutions = $this->Solution->find('all');
-		$this->layout = 'viewlayout';
+		//$this->layout = 'viewlayout';
         $this->set('solutions', $solutions);
     }
 
@@ -68,7 +63,7 @@ class SolutionsController extends AppController {
     }
 
     public function add() {
-    	$this->layout = 'viewlayout';
+    	//$this->layout = 'viewlayout';
     	$this->Solution->recursive = 0;
         $this->set('solutions', $this->paginate());
 	//	$this->set('jscatarray',$this->getCategories());
@@ -78,11 +73,11 @@ class SolutionsController extends AppController {
 		
         if ($this->request->is('post')) {	
 			$solution = $this->request->data;
-		
+			
 			// TODO: setup solution to products association
-			if (is_array($solution['Solution']['products'])) {
-      			$solution['Solution']['products'] = implode(',',$solution['Solution']['products']);
-			}		
+		//	if (is_array($solution['Solution']['products'])) {
+      	//		$solution['Solution']['products'] = implode(',',$solution['Solution']['products']);
+		//	}		
 			
 			$this->Solution->set($solution);
             if ($this->Solution->validates()) {
@@ -99,23 +94,31 @@ class SolutionsController extends AppController {
     }
 
     public function edit($id = null) {
-    	 //$this->layout = 'viewlayout';
-		$this->layout = 'lame';
-    	$this->Solution->recursive = 0;
-        $this->set('solutions', $this->paginate());
-		//$this->set('jscatarray',$this->getCategories());
+    	
 		
+    	$this->Solution->recursive = 0;
         $this->Solution->id = $id;
         if (!$this->Solution->exists()) {
             throw new NotFoundException(__('Invalid solution'));
         }
+	
         if ($this->request->is('post') || $this->request->is('put')) {
         	
 			$solution = $this->request->data;
-			//if (is_array($solution['Solution']['products'])) {
+			$slideArr = $this->request->data['Solution']['slide'];		
+			$videoArr = $this->request->data['Solution']['video'];
 			
-      		//	$solution['Solution']['products'] = implode(',',$solution['Solution']['products']);
-			//}
+			$slideFileName = $slideArr['name'];
+			$videoFileName = $videoArr['name'];
+			
+			if (!empty($slideFileName)) {
+				$solution['Solution']['slide_name'] = $slideFileName;
+			}
+			
+			if(!empty($videoFileName)) {
+				$solution['Solution']['video_name'] = $videoFileName;
+			}
+			
         	$this->Solution->set($solution);
 			
             if ($this->Solution->validates()) {
@@ -134,8 +137,6 @@ class SolutionsController extends AppController {
         } else {
             $this->request->data = $this->Solution->read(null, $id);
 			//$this->request->data['Solution']['products'] = explode(",",$this->request->data['Solution']['products']);
-			
-			
         }
     }
 

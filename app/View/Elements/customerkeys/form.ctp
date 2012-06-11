@@ -8,6 +8,20 @@
 	echo $this->Form->input('notes');
 */
 ?>
+<?php
+
+$url = $this->Html->url(array('controller'=>'customerkeys',
+    					'action'=>'index'));
+$this->Html->scriptBlock("
+ 	 $(document).ready(function() { 
+	 
+     $('.cancel button').click(function(event) {
+    	location.href='$url' 			
+     });
+	 })
+",array('inline'=>false));
+?>
+
 
 	 	<?php echo $this->Form->create('Customerkey', array('class' => 'form')); ?>
         <?php echo $this->Form->input('customer'); ?>       
@@ -21,7 +35,7 @@
     	// &#8594; &gt;
     	// <a href='#' class='product-expand'>&#8594;</a>
 		echo "<div class='prod-group'>";
-		echo "<span><input class='group-check' type='checkbox' name='_group'/>". $key . "&nbsp;" .
+		echo "<span><input class='group-check' type='checkbox' name='_group'/>". $key . "<span class='group-count'></span>&nbsp;" .
 			$this->Html->link(
 		 				$this->Html->image('right.png', array('alt' => 'right', 'width' => '10', 'height' => '10')),
     					'',
