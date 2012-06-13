@@ -52,7 +52,7 @@
 			</ul>
 		</div>
 	</div>
-	<hr/>
+	
 	<?php echo $this->fetch('content'); ?>
 
 </div><!-- container end -->

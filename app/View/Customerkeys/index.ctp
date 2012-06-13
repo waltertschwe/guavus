@@ -24,10 +24,7 @@
 				$(document).ready(function() {
 				 oTable = $('#example').dataTable({
 				 	//"sScrollY": "400px",
-					"iDisplayLength": 10,
-					"sDom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
-     	 		    "aaSorting": [[1,'asc']],
-					"sPaginationType": "two_button",
+					"iDisplayLength": 100,
 				});
 				handleIndexExpand();
 			} );
@@ -69,7 +66,7 @@
 			</ul>
 		</div>
 	</div>
-	<hr/>
+	
 <div id="title">
 	Access Keys
 </div>
@@ -80,44 +77,44 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
 	<thead>
 	<tr>
-		<th>Action</th>
 		<th>Customer</th>
 		<th>Key</th>
-		<th>Products</th>
 		<th>Expires</th>
+		<th>Products</th>
 		<th>Notes</th>
 	</tr>
 	</thead>
 
 <?php foreach ($customerkeys as $customerkey) { ?>
-	<tr class="gradeX">
-		<td>
-			 <?php 
-			 		$customerId = $customerkey['Customerkey']['id'];
-			 		echo $this->Html->link(
-		 				$this->Html->image('edit-icon.png', array('alt' => 'activity', 'width' => '25', 'height' => '25')),
-    					'edit/' . $customerId,
-						array('escape' => false));
-			?>	
-		</td>
+	<tr class="gradeU">
  		<td class="center"><?php echo $customerkey['Customerkey']['customer']; ?></td>
- 		<td class="center"><?php echo $customerkey['Customerkey']['accesskey']; ?></td>
- 		<td><?php /*
- 		var_dump($customerkey['Solution']);
- 		echo implode(", ",array_map(function($arr) {return $arr['name'];},$customerkey['Solution']));*/
- 		echo $this->App->displayCustomerIndexProducts($customerkey['Solution']);
+ 		<td class="center">
+ 			<?php 
+ 				echo $this->Html->link($customerkey['Customerkey']['accesskey'], array('action' => 'edit', $customerkey['Customerkey']['id']));?>
+ 			
+ 		</td>
+ 		<td><?php 
+ 				$expires = $customerkey['Customerkey']['expires']; 
+				$parts = explode(" ", $expires);
+				$fullMonth = $parts[0];
+				$date = explode("-", $fullMonth);
+				$monthNum = $date[1];
+				$month = monthMap($monthNum);
+				//echo $parts[0];
+				echo $date[0]. "-" .$month . "-" . $date[2];
+ 			?></td>
+ 		<td><?php 
+ 			echo $this->App->displayCustomerIndexProducts($customerkey['Solution']);
  		?></td>
- 		<td><?php echo $customerkey['Customerkey']['expires']; ?></td>
  		<td><?php echo $customerkey['Customerkey']['notes']; ?></td>
  	</tr>
 <?php } ?>
 <tbody>
 	<tfoot>
-		<th>Action</th>
 		<th>Customer</th>
 		<th>Key</th>
-		<th>Products</th>
 		<th>Expires</th>
+		<th>Products</th>
 		<th>Notes</th>
 	</tfoot>
 </table>

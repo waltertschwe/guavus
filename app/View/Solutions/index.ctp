@@ -10,9 +10,8 @@
 			$(document).ready(function() {
 				 oTable = $('#example').dataTable({
 				 	//'sScrollY': '400px',
-					'iDisplayLength': 10,
-					'sDom': '<\"top\"iflp<\"clear\">>rt<\"bottom\"iflp<\"clear\">>',
-     	 		    'aaSorting': [[1,'asc']],
+					'iDisplayLength': 100,
+     	 		    'aaSorting': [[0,'asc']],
 					'sPaginationType': 'two_button',
 				});
 			} );
@@ -35,30 +34,26 @@ array('controller' => 'solutions', 'action' => 'add')); ?>
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
     <thead>
     <tr>
-    	<th>Action</th>
+    	<th>Name</th>
         <th>Vertical</th>
-        <th>Solution</th>
         <th>Category</th>
-		<th>Media</th>
+        <th>Demo URL</th>
+		<th>Slides</th>
+		<th>Notes</th>
     </tr>
 	</thead>
     <!-- Here is where we loop through our $posts array, printing out post info -->
 
     <?php foreach ($solutions as $solution): ?>
-	<tr class="gradeX">
+	<tr class="gradeU">
 		<td>
 			 <?php 
-			 		$solutionId = $solution['Solution']['id'];
-			 		echo $this->Html->link(
-		 				$this->Html->image('edit-icon.png', array('alt' => 'activity', 'width' => '25', 'height' => '25')),
-    					'edit/' . $solutionId,
-						array('escape' => false));
-			?>	
+			 	echo $this->Html->link($solution['Solution']['name'], array('action' => 'edit', $solution['Solution']['id']));?> 		
 		</td>    	
     	
         <td class="center"><?php echo $solution['Solution']['product']; ?></td>
-        <td class="center"><?php echo $solution['Solution']['name']; ?></td>
         <td class="center"><?php echo $solution['Solution']['category']; ?></td>
+        <td class="center"><?php echo $solution['Solution']['demo_url']; ?></td>
         <td>
         	<?php
         		$video = $solution['Solution']['video_name'];
@@ -77,15 +72,17 @@ array('controller' => 'solutions', 'action' => 'add')); ?>
         	?>
         	
         </td>
+        <td><?php echo $solution['Solution']['notes']; ?></td>
 
     </tr>
     <?php endforeach; ?>
     <tfoot>
-   		<th>Action</th>
+   		<th>Name</th>
         <th>Vertical</th>
-        <th>Solution</th>
         <th>Category</th>
-        <th>Media</th>
+        <th>Demo URL</th>
+		<th>Slides</th>
+		<th>Notes</th>
 	</tfoot>
 </table>
 </div>
