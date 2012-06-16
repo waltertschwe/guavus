@@ -66,6 +66,9 @@
 				margin: 30px auto;
 				width:95%;
 			}
+			#content-right ul {
+				list-style-type: none;
+			}
 	
 		</style>
 		<script type="text/javascript">
@@ -150,8 +153,12 @@
 					
 				</div>
 				<div id="content-right">
-					put right link stuff here
-					put right link stuff here
+					<ul>
+						<li><?php echo $this->Html->image('download.png'); ?></li>
+						<li><?php echo $this->Html->image('slides.png'); ?></li>
+						<li><?php echo $this->Html->image('launch-demo.png'); ?></li>
+						<li><?php echo $this->Html->image('email.png'); ?></li>
+					</ul>
 					
 				</div>				
 			
