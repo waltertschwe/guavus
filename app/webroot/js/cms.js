@@ -14,6 +14,7 @@ guavus.product = function() {
 	}
 	var handleGroupCheck = function () {
 		$('#products').on('click','.group-check',function(event) {
+
 			$groupItems = $(this).closest('.prod-group').find(".prod-items input[type='checkbox']");
 			if ($(this).is(':checked')) {
 				$groupItems.attr('checked',true);
@@ -21,6 +22,7 @@ guavus.product = function() {
     			$groupItems.attr('checked',false);
 
     		}
+			updateCounter($(this).closest('.prod-group'));
 
 		});
 		
@@ -49,13 +51,13 @@ guavus.product = function() {
 			$groupCheck = $(this).closest('.prod-group').find(".group-check");
 			if ($(this).is(':checked')) {
 				checkGroupIfItemsAre($(this).closest('.prod-group'));
-				updateCounter($(this).closest('.prod-group'));
 
 			} else {
 				$groupCheck.attr('checked',false);
-				updateCounter($(this).closest('.prod-group'));
 
 			}
+			updateCounter($(this).closest('.prod-group'));
+
 		});	
 	}
 	return {
