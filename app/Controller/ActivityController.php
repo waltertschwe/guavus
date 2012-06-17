@@ -18,7 +18,7 @@ class ActivityController extends AppController {
 	
 	}
 
-	public function test($id = null) {
+	public function logdata($id = null) {
 		$this->layout = 'viewlayout';
 		$activity = array();
 		

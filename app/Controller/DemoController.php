@@ -3,8 +3,6 @@ class DemoController extends AppController {
 			
 	var $uses = array('Customerkey','Solution');
 	
-	
-
 	public function login() {
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {
@@ -44,7 +42,5 @@ class DemoController extends AppController {
 		
 		
 	}
-		
 	
-
 }

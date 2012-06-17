@@ -67,7 +67,7 @@
 	</div>
 	
 <div id="title">
-	Access Keys
+	Activity
 </div>
 
 <div id="demo">
@@ -86,7 +86,32 @@
  		<td class="center"><?php echo $activity['Activity']['solution']; ?></td>
  		<td class="center"><?php echo $activity['Activity']['accesskey']; ?></td>
  		<td><?php echo $activity['Activity']['date']; ?></td>
- 		<td>Activity Icons Here</td>
+ 		<td>
+				<?php 
+					$isDownload = $activity['Activity']['isDownload'];
+					$isSlide    = $activity['Activity']['isSlide'];
+					$isDemo     = $activity['Activity']['isDemo'];
+					$isEmail    = $activity['Activity']['isEmail'];
+					if($isDownload) {
+						echo $this->Html->image('download.png'); 
+						echo "&nbsp;";	
+					}
+
+					if($isSlide) {
+						echo $this->Html->image('slides.png');
+						echo "&nbsp;";	
+					}
+					
+					if($isDemo) {
+						echo $this->Html->image('launch-demo.png');
+						echo "&nbsp;";	
+					}
+				
+					if($isEmail) {
+						echo $this->Html->image('email.png');
+					}	
+				?>
+		</td>
  	</tr>
 <?php } ?>
 <tbody>

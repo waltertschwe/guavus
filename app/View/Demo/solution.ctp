@@ -7,6 +7,7 @@
 			  echo $this->Html->css('jquery-ui-1.8.20.custom.css');
 			  echo $this->Html->script(array('jquery-1.7.2.min.js'));
 			  echo $this->Html->script(array('jquery-ui-1.8.20.custom.min.js'));
+			  echo $this->Html->script(array('popcorn-complete.min.js'));
 			  echo $this->fetch('meta');
 			  echo $this->fetch('css');
 			  echo $this->fetch('script');
@@ -147,21 +148,65 @@
 			</div>
 			<div id="content">
 				<div id="content-left">
-					put video here
-					put video here
-					
-					
+					<script>
+         document.addEventListener( "DOMContentLoaded", function() {
+  
+            var popcorn = Popcorn( "#ourvideo" );
+  
+            popcorn.footnote({
+             start: 2,
+             end: 5,
+             target: "footnote",
+             text: "Pop!"
+           });
+ 
+         }, false );
+       </script>
+       <video height="500" width="900" id="ourvideo">
+         <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4">
+         <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv">
+         <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm">
+       </video>
+       <div id="footnote"></div>     
 				</div>
 				<div id="content-right">
-					<ul>
-						<li><?php echo $this->Html->image('download.png'); ?></li>
-						<li><?php echo $this->Html->image('slides.png'); ?></li>
-						<li><?php echo $this->Html->image('launch-demo.png'); ?></li>
-						<li><?php echo $this->Html->image('email.png'); ?></li>
-					</ul>
-					
-				</div>				
-			
+				<script>
+				function addHit(id)
+				{
+				    $.load({
+				       type: "POST",
+				       url: "../../activity/logdata/" + id,
+				       success: function(msg){
+				         alert( "Data Saved: " + msg ); //Anything you want
+				       }
+				     });
+				}
+				</script>
+				<ul>
+					<li><?php echo $this->Html->link(
+								 $this->Html->image('download.png'),
+								 '',
+								 array('onclick' => "addHit('1')", 'escape' => false));			 
+						?>		 
+					</li>
+					<li><?php echo $this->Html->link(
+								 $this->Html->image('slides.png'),
+								 '',
+								  array('onclick' => "addHit('2')", 'escape' => false));		
+						?>
+					</li>
+					<li><?php echo $this->Html->link( 
+								$this->Html->image('launch-demo.png'),
+								'',
+								 array('onclick' => "addHit('3')", 'escape' => false));			
+						?></li>
+					<li><?php echo $this->Html->link(
+								$this->Html->image('email.png'),
+								'',
+								array('onclick' => "addHit('4')", 'escape' => false));	
+						?></li>
+				</ul>
+				</div>					
 			</div>
 		</div>
 		<div id="open-div">
@@ -209,3 +254,4 @@
 		</div>
 	</body>
 </html>	
+
