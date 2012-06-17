@@ -134,6 +134,7 @@
 			}();
 			$(document).ready(function(){
 				guavusdisp.slide.init();
+				
 			});
 		</script>		
 		
@@ -150,9 +151,7 @@
 				<div id="content-left">
 					<script>
          document.addEventListener( "DOMContentLoaded", function() {
-  
             var popcorn = Popcorn( "#ourvideo" );
-  
             popcorn.footnote({
              start: 2,
              end: 5,
@@ -170,41 +169,31 @@
        <div id="footnote"></div>     
 				</div>
 				<div id="content-right">
-				<script>
-				function addHit(id)
-				{
-				    $.load({
-				       type: "POST",
-				       url: "../../activity/logdata/" + id,
-				       success: function(msg){
-				         alert( "Data Saved: " + msg ); //Anything you want
-				       }
-				     });
-				}
-				</script>
-				<ul>
-					<li><?php echo $this->Html->link(
+				<ul id="activity">
+					<li id="download"><?php echo $this->Html->link(
 								 $this->Html->image('download.png'),
-								 '',
-								 array('onclick' => "addHit('1')", 'escape' => false));			 
+								 '../activity/logdata/1',
+								 array('escape' => false));			 
 						?>		 
 					</li>
-					<li><?php echo $this->Html->link(
+					<li id="slide"><?php echo $this->Html->link(
 								 $this->Html->image('slides.png'),
-								 '',
-								  array('onclick' => "addHit('2')", 'escape' => false));		
+								 '../activity/logdata/2',
+								  array('escape' => false));		
 						?>
 					</li>
-					<li><?php echo $this->Html->link( 
+					<li id="launch-demo"><?php echo $this->Html->link( 
 								$this->Html->image('launch-demo.png'),
-								'',
-								 array('onclick' => "addHit('3')", 'escape' => false));			
-						?></li>
-					<li><?php echo $this->Html->link(
+								'../activity/logdata/3',
+								 array('escape' => false));			
+						?>
+					</li>
+					<li id="email"><?php echo $this->Html->link(
 								$this->Html->image('email.png'),
-								'',
-								array('onclick' => "addHit('4')", 'escape' => false));	
-						?></li>
+								'../activity/logdata/4',
+								array('escape' => false));	
+						?>
+					</li>
 				</ul>
 				</div>					
 			</div>
