@@ -20,7 +20,13 @@ class ActivityController extends AppController {
 
 	public function logdata($id = null) {
 		$this->layout = 'viewlayout';
-		$activity = array();
+		
+		$activity = array(); 
+		
+		if($this->Session->read('ActivityId')) {
+			$activityId = $this->Session->read('ActivityId');
+			$activity = $this->Activity->find('first', array('conditions'=> array('id'=> $activityId)));
+		} 
 		
 		$solution = $this->Solution->find('first',array('conditions'=>array('id'=>'20')));
 		$solutionName = $solution['Solution']['name'];		
@@ -35,37 +41,32 @@ class ActivityController extends AppController {
 		$activity['Activity']['accesskey'] = $customerKey;
 		$activity['Activity']['date'] = $today;
 		
-		
-		if($this->Session->read('ActivityId')) {
-			echo "key = " . $this->Session->read('ActivityId');
-			$activityId = $this->Session->read('ActivityId');
-			$activity = $this->Activity->find('first', array('conditions'=> array('id'=> $activityId)));
-			if(isset($id)) {			
-				switch($id) {
-					case 1:
-		        	    $activity['Activity']['isDownload'] = 1;
-		      			break;
-		  		    case 2:
-		  			    $activity['Activity']['isSlide'] = 1;
-		   			    break;
-				    case 3:
-				        $activity['Activity']['isDemo'] = 1;
-		    			break;
-					case 4:
-						$activity['Activity']['isEmail'] = 1;
-				}
+		if(isset($id)) {			
+			switch($id) {
+				case 1:
+	        	    $activity['Activity']['isDownload'] = 1;
+	      			break;
+	  		    case 2:
+	  			    $activity['Activity']['isSlide'] = 1;
+	   			    break;
+			    case 3:
+			        $activity['Activity']['isDemo'] = 1;
+	    			break;
+				case 4:
+					$activity['Activity']['isEmail'] = 1;
 			}
+		}
 			
-			$this->Activity->save($activity);
-			
-		} else {
-			$this->Activity->save($activity);
+		
+		$this->Activity->save($activity);
+		
+		if(!$this->Session->read('ActivityId')) {
 			$lastId = $this->Activity->getLastInsertID();
 			$this->Session->write('ActivityId', $lastId);
-		}	
-		
+			echo "last Id = " . $lastId;
+		}
 	}
-	
+
 	public function afterFilter() {
 		//$this->Session->delete('Key');
 	}
