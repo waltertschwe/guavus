@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		
+		<meta charset=utf-8>
+		<!--[if IE]> 
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]--> 
+		<!--[if lte IE 7]> 
+			<script src="js/IE8.js" type="text/javascript"></script>
+		<![endif]--> 
+		<!--[if lt IE 7]>  
+			<link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/>
+		<![endif]-->
 		
 		<?php 
 			  echo $this->Html->css('jquery-ui-1.8.20.custom.css');
 			  echo $this->Html->script(array('jquery-1.7.2.min.js'));
 			  echo $this->Html->script(array('jquery-ui-1.8.20.custom.min.js'));
 			  echo $this->Html->script(array('popcorn-complete.min.js'));
+			  echo $this->Html->script(array('player-1.0.4.js'));
 			  echo $this->fetch('meta');
 			  echo $this->fetch('css');
 			  echo $this->fetch('script');
@@ -136,7 +146,16 @@
 				guavusdisp.slide.init();
 				
 			});
-		</script>		
+		</script>	
+		<script>
+			document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
+
+			function onDOMContentLoaded(e)
+			{
+				var p = new Player();
+					p.embedPlayer("../../config/config-1.0.4.json");
+			}
+		</script>	
 		
 		
 	</head>
@@ -149,23 +168,10 @@
 			</div>
 			<div id="content">
 				<div id="content-left">
-					<script>
-         document.addEventListener( "DOMContentLoaded", function() {
-            var popcorn = Popcorn( "#ourvideo" );
-            popcorn.footnote({
-             start: 2,
-             end: 5,
-             target: "footnote",
-             text: "Pop!"
-           });
- 
-         }, false );
-       </script>
-       <video height="500" width="900" id="ourvideo">
-         <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4">
-         <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv">
-         <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm">
-       </video>
+				<div id="nowPlayingContainer">
+   				</div>
+        		<div id="playerContainer">
+	   			</div>
        <div id="footnote"></div>     
 				</div>
 				<div id="content-right">
