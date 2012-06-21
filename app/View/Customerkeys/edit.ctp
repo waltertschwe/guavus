@@ -36,9 +36,22 @@
 		</div>
 		<div id="nav">
 			<ul>
-				<li><img src="/guavus/cakephp/img/keys-red.png" /></li>
-				<a href=""><li><img src="/guavus/cakephp/img/products.png" /></li></a>
-				<a href=""><li><img src="/guavus/cakephp/img/activity.png" /></li></a>
+				<li>
+					<?php echo $this->Html->image('keys-red.png', array('alt' => 'keys-red')); ?>
+				</li>
+				<li>
+					<?php echo $this->Html->link( 
+					          		$this->Html->image('products.png', array('alt' => 'products')),
+					          		'../solutions',
+					          		array('escape' => false));
+					 ?>
+				<li>
+					<?php echo $this->Html->link(
+							       $this->Html->image('activity.png', array('alt' => 'activity')),
+							       '../activity',
+							       array('escape' => false));
+					?>
+				</li>
 			</ul>
 		</div>
 	</div>

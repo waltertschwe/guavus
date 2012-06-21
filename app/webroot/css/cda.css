@@ -48,6 +48,22 @@ table {
 	border-spacing: 0;
 }
 
+/* landing page */
+.landing-page #main {
+	margin: auto;
+	position: relative;
+	top: 50%;
+	width: 600px;	
+}
+
+.landing-page .logo {
+	margin-top: 27px;
+	
+}
+
+
+
+/* landing page end */
 /* main page*/
 
 html,
@@ -75,7 +91,6 @@ body {
 
 
 .main-page #main {
-	height: 50px;
 	margin: auto;
 	position: relative;
 	top: 50%;
@@ -195,3 +210,10 @@ body {
 }
 
 /* secondary page end*/
+
+#demo {
+	padding-bottom: 30px;  
+}
+#admin {
+	padding-top: 30px;  
+}	

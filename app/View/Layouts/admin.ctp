@@ -47,7 +47,11 @@
 					
 				</li>
 				<li>
-					<a href=""><?php echo $this->Html->image('activity.png', array('alt' => 'activity')); ?></a>
+					<?php	echo $this->Html->link(
+		 				$this->Html->image('activity.png', array('alt' => 'activity')),
+    					array('controller' => 'activity', 'action' => 'index'),
+						array('escape' => false));
+					?>
 				</li>
 			</ul>
 		</div>
