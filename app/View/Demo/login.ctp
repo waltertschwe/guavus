@@ -6,7 +6,7 @@
 </head>	
 <body>
 	<div id="wrap">
-			<?php echo $this->Session->flash(); ?>
+			<?php ##echo $this->Session->flash(); ?>
 		<div id="main">
 			<div class="logo">
 				<?php echo $this->Html->image('guavus-lounge.png'); ?>

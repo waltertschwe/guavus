@@ -21,11 +21,9 @@
 		 	<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
 		</div><!-- Header End -->
 		<div id="new-key">
-		 <?php	echo $this->Html->link(
-		 				$this->Html->image('new-key-button.png'),
-    					'add/',
-						array('escape' => false));
-		?>
+		<?php echo $this->Html->link('Add New Solution',
+array('controller' => 'solutions', 'action' => 'add')); ?>
+	
 		</div>
 		<div id="nav">
 			<ul>

@@ -145,13 +145,13 @@
 	<script type="text/template" id="solution_template">
 		<div id="wrap">
 			<div id="main">
-				<%=name %>
-				<%=notes %>
-				<div id="current-section">wireless</div>
+				
+				
+				<div id="current-section"><%=name %></div>
 				<div id="next-section">Next (Campaign Management)</div>
 				<div id="title-content">
 					<h1>Roaming Reduction</h1>
-					<p class="desc">Sed tincidunt dictum viverra. Aliquam cursus, nunc ac feugiat suscipit, nunc lorem porta nisi, id euismod diam elit vel mi. Mauris volutpat accumsan consectetur. Aenean ut odio nec justo sagittis egestas. Sed elit lorem, interdum id pretium blandit, hendrerit non odio. Nam rhoncus pulvinar interdum. Nullam posuere erat nec nisl adipiscing ac tincidunt odio fermentum. Sed quis sem ante.</p>
+					<p class="desc"><%=notes %>Sed tincidunt dictum viverra. Aliquam cursus, nunc ac feugiat suscipit, nunc lorem porta nisi, id euismod diam elit vel mi. Mauris volutpat accumsan consectetur. Aenean ut odio nec justo sagittis egestas. Sed elit lorem, interdum id pretium blandit, hendrerit non odio. Nam rhoncus pulvinar interdum. Nullam posuere erat nec nisl adipiscing ac tincidunt odio fermentum. Sed quis sem ante.</p>
 				</div>			
 			
 			<div class="video-content">
@@ -172,7 +172,7 @@
 				</div>
 			</div>
 			<div class="logo">
-				<img src="guavus.png" alt="guavus"/>
+				<?php echo $this->Html->image('guavus.png'); ?>
 			</div>
 		</div></div>
 		</script>			

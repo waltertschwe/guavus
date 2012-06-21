@@ -26,11 +26,7 @@
 <?php echo $this->Session->flash(); ?>
 </div>
 
-  <?php echo $this->Html->link('Add New',
-array('controller' => 'solutions', 'action' => 'add')); ?>
-
 <div id="demo">
-
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
     <thead>
     <tr>
