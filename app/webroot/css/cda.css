@@ -129,6 +129,7 @@ body {
 	padding: 100px 0;
 	font-family: helvetica;
 	position: relative;
+	padding: 0px 0 100px 0;
 }
 #current-section,
 #next-section {
@@ -181,7 +182,7 @@ body {
 	height: 36px;
 	padding-left: 45px;
 	line-height: 36px;
-	background: url('tool-bar-sprites.png') no-repeat 0 0;
+	background: url('/guavus/cakephp/app/webroot/img/tool-bar-sprites.png') no-repeat 0 0;
 	text-decoration: none;
 }
 

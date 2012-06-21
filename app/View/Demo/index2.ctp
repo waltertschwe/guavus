@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html class="seconardy-page">
 	<head>
-		
-		
+	
 		<?php 
 			  echo $this->Html->script(array('jquery-1.7.2.min.js'));
 			  echo $this->Html->script(array('underscore-min.js'));
@@ -10,7 +9,8 @@
 	  		  echo $this->Html->script(array('video.min.js'));
 	  		  echo $this->Html->css(array('video-js.css'));
 			  echo $this->fetch('meta');
-			  echo $this->fetch('css');
+			  //echo $this->fetch('css');
+			  echo $this->Html->css('cda.css');
 			  echo $this->fetch('script');
 			  
 		?>
@@ -168,27 +168,34 @@
 		
 	</head>
 	<body>
-		<div id="container">
-			<div id="header">
+		
+		<div id="wrap">
+		<div id="main"></div>
 				<div id="name"></div>
 				<div id="notes"></div>
-			</div>
-			
-			<div id="content"> 
-				<div id="content-left">
+		<div id="title-content">
+			<h1>Roaming Reduction</h1>
+			<p class="desc">Sed tincidunt dictum viverra. Aliquam cursus, nunc ac feugiat suscipit, nunc lorem porta nisi, id euismod diam elit vel mi. Mauris volutpat accumsan consectetur. Aenean ut odio nec justo sagittis egestas. Sed elit lorem, interdum id pretium blandit, hendrerit non odio. Nam rhoncus pulvinar interdum. Nullam posuere erat nec nisl adipiscing ac tincidunt odio fermentum. Sed quis sem ante.</p>
+		</div>			
+			<div class="video-content">
 					<video width="675" height="380" class="video-js vjs-default-skin"  controls id="vidplayer">
 						<source type="video/mp4" src=""></source>
 					</video> 
-							
-				</div>
-				<div id="content-right">
-					<ul>
-						<li id="slide_name"></li>
-						<li id="demo_url"></li>
-					</ul>
-				</div>				
-			
 			</div>
+				<div id="sidebar">
+			<div id="tool-bar">
+				<ul>
+					<li class="download"><a href="#download">Download Presentation</a></li>
+					<li class="slides"><a href="#quick-slides">Quick-view Slides</a></li>
+					<li class="launch-demo"><a href="#Launch-demo">Launch Demo</a></li>
+					<li class="feedback"><a href="#feedback">Tell us what you think</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="logo">
+				<img src="guavus.png" alt="guavus"/>
+		</div>
+	</div>
 			
 			
 		</div>

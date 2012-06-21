@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="seconardy-page">
 	<head>
 		
 		
@@ -7,7 +7,7 @@
 			  echo $this->Html->script(array('jquery-1.7.2.min.js'));
 			  echo $this->Html->script(array('underscore-min.js'));
 			  echo $this->Html->script(array('backbone-min.js'));
-	  
+			  echo $this->Html->css('cda.css');
 			  echo $this->fetch('meta');
 			  echo $this->fetch('css');
 			  echo $this->fetch('script');
@@ -138,34 +138,43 @@
 			//	Backbone.history.start();
 				
 			});
-		</script>		
-	
-
-		
+		</script>			
 	</head>
 	<body>
 
 	<script type="text/template" id="solution_template">
-
-			<div id="header">
+		<div id="wrap">
+			<div id="main">
 				<%=name %>
 				<%=notes %>
-			</div>
+				<div id="current-section">wireless</div>
+				<div id="next-section">Next (Campaign Management)</div>
+				<div id="title-content">
+					<h1>Roaming Reduction</h1>
+					<p class="desc">Sed tincidunt dictum viverra. Aliquam cursus, nunc ac feugiat suscipit, nunc lorem porta nisi, id euismod diam elit vel mi. Mauris volutpat accumsan consectetur. Aenean ut odio nec justo sagittis egestas. Sed elit lorem, interdum id pretium blandit, hendrerit non odio. Nam rhoncus pulvinar interdum. Nullam posuere erat nec nisl adipiscing ac tincidunt odio fermentum. Sed quis sem ante.</p>
+				</div>			
 			
-			<div id="content"> 
-				<div id="content-left">
-					<video width="675" height="380" controls preload="auto" id="vidplayer">
+			<div class="video-content">
+					<video width="850" height="477" controls preload="auto" id="vidplayer">
 						<source type="video/mp4" src="<%=video_name %>"></source>
 					</video> 
-					
-					
-				</div>
-				<div id="content-right">
+			</div>
+				<div id="sidebar">
+					<div id="tool-bar">
 					<%=demo_url %>
 					<%=slide_name %>					
-				</div>				
-			
+					<ul>
+						<li class="download"><a href="#download">Download Presentation</a></li>
+						<li class="slides"><a href="#quick-slides">Quick-view Slides</a></li>
+						<li class="launch-demo"><a href="#Launch-demo">Launch Demo</a></li>
+						<li class="feedback"><a href="#feedback">Tell us what you think</a></li>
+					</ul>
+				</div>
 			</div>
+			<div class="logo">
+				<img src="guavus.png" alt="guavus"/>
+			</div>
+		</div></div>
 		</script>			
 		<div id="container">
 		</div>
