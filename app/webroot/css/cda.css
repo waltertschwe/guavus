@@ -1,0 +1,197 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+	 v2.0 | 20110126
+	 License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* main page*/
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+#main {
+	overflow: hidden;
+}
+
+.logo {
+	float: left;
+	
+} 
+
+#wrap {
+	height: 100%;
+	width: 100%;
+}
+#sidebar {
+	float: right;
+}
+
+
+.main-page #main {
+	height: 50px;
+	margin: auto;
+	position: relative;
+	top: 50%;
+	width: 600px;	
+} 
+
+#key-word-form {
+	border:2px solid #a1a1a1;
+	padding:2px 10px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	width: 200px;
+	position: relative;
+	height: 20px;
+}
+
+#key-word-form .submit-button {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+#key-word-form input {
+	border: 0;
+}
+
+
+
+/* main page end*/
+
+/* secondary page */
+
+.seconardy-page #main {
+	width: 1200px;
+	margin: auto;
+	padding: 100px 0;
+	font-family: helvetica;
+	position: relative;
+}
+#current-section,
+#next-section {
+	font-size: 12px;
+	color: 	#a1a1a1;
+	margin-bottom: 20px
+}
+#current-section {
+	float: left;
+}
+#next-section {
+	float: right;
+}
+
+#title-content {
+	clear: both;
+	margin-bottom: 50px;	
+}
+#title-content h1 {
+	font-size: 25px;
+	line-height: 120%;
+	margin-bottom: 15px;
+}
+
+#title-content p {
+	font-size: 18px;
+	line-height: 120%;
+}
+
+
+.video-content {
+	height: 477px;
+	width: 850px;
+	background: #7b7b7b;
+	margin-left: 50px;
+	float: left;
+}
+
+#tool-bar,
+#tool-bar a {
+	font-size: 16		px;
+	color: #7b7b7b;
+}
+#tool-bar li {
+	margin-bottom: 20px;
+}
+
+#tool-bar a {
+	display: inline-block;
+	height: 36px;
+	padding-left: 45px;
+	line-height: 36px;
+	background: url('tool-bar-sprites.png') no-repeat 0 0;
+	text-decoration: none;
+}
+
+#tool-bar .download a {
+	background-position: 0 5px;
+}
+
+
+#tool-bar .slides a {
+	background-position: 0 -48px;
+}
+
+#tool-bar .launch-demo a {
+	background-position: 0 -95px;
+}
+
+#tool-bar .feedback a {
+	background-position: 0 -146px;
+}
+
+.seconardy-page .logo {
+	clear: both;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+/* secondary page end*/
