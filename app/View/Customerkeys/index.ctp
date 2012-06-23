@@ -93,7 +93,7 @@
  				echo $this->Html->link($customerkey['Customerkey']['accesskey'], array('action' => 'edit', $customerkey['Customerkey']['id']));?>
  			
  		</td>
- 		<td><?php 
+ 		<td class="center"><?php 
  				$expires = $customerkey['Customerkey']['expires']; 
 				$parts = explode(" ", $expires);
 				$fullMonth = $parts[0];

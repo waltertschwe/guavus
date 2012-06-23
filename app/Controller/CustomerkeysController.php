@@ -1,10 +1,14 @@
 <?php 
 class CustomerkeysController extends AppController {
 	var $helpers = array('App');
+	public $components = array('RequestHandler');
 	
     public function beforeFilter() {
 
     }
+
+
+
 
 	private function getGroupedProducts() {
 		$this->Customerkey->recursive = 0;
@@ -21,6 +25,24 @@ class CustomerkeysController extends AppController {
 		return $group;
 	}	
 
+	public function validatekey() {
+		$this->layout = "ajax";
+		if ($this->RequestHandler->isAjax()) {
+			$this->request->data['Customerkey']['accesskey'] = $this->data['accesskey'];
+			$this->request->data['Customerkey']['id'] = $this->data['customerkey_id'];			
+
+			$this->Customerkey->set($this->request->data);
+			if ($this->Customerkey->validates()) {
+				$this->autoRender = FALSE;
+			} else {
+				$errors = $this->validateErrors($this->Customerkey);
+				$this->response->type('text/json');
+				$this->set('error',$errors['accesskey']);
+			}
+		}
+
+	}
+
 
     public function index() {
         
@@ -35,6 +57,8 @@ class CustomerkeysController extends AppController {
    
     public function add() {
      	$this->layout = 'viewlayout';
+		$this->set('customerkey_id','');
+		
     	//$products = $this->Customerkey->Product->find('list');
 		//$this->set(compact('products'));
 		$this->set('groupProducts',$this->getGroupedProducts());		
@@ -60,6 +84,8 @@ class CustomerkeysController extends AppController {
 		$this->set('groupProducts',$this->getGroupedProducts());		
 		$this->Customerkey->recursive = 1;
         $this->Customerkey->id = $id;
+		$this->set('customerkey_id',$id);	
+		
 		//$products = $this->Customerkey->Product->find('list');
 		//$this->set(compact('products'));
 		
@@ -71,6 +97,7 @@ class CustomerkeysController extends AppController {
 			$this->Customerkey->set($this->request->data);
 			
             if ($this->Customerkey->validates()) {
+            	var_dump($this->request->data['submitaction']);
             	if ($this->request->data['submitaction'] == 'Expire Now') {
         			$dat =  date("Y-m-d", time() - (60*60*48));
 					$this->request->data['Customerkey']['expires']= $dat;
@@ -81,7 +108,7 @@ class CustomerkeysController extends AppController {
                 $this->Session->setFlash(__('The customer key has been updated.'));
                 //var_dump($this->request->data);
                 //$this->redirect(array('action' => 'edit',$id));
-                $this->redirect(array('action' => 'index'));
+               $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The customer could not be saved. Please, try again.'));
             }

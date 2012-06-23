@@ -36,7 +36,11 @@ class Customerkey extends AppModel {
             ),
             'unique' => array(
         		'rule' => 'isUnique',
-        		'message' => 'That key already exists. Please enter a unique key.')
+        		'message' => 'That key already exists. Please enter a unique key.'),
+        	'maxlength' => array(
+				'rule' => array('maxLength',40),
+				'message' => 'Accesskey must not be longer than 40'
+			)
         ),
         'Product' => array(
                'multiple' => array(

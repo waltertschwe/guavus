@@ -21,7 +21,7 @@ class SolutionsController extends AppController {
 
 	
 	private function uploadFile($field) {
-		$target = MEDIA;
+		$target = MEDIABACKEND;
 		$fileArray = $this->request->data['Solution'][$field];		
 		//var_dump($fileArray);
 		//exit();

@@ -126,10 +126,9 @@ body {
 .seconardy-page #main {
 	width: 1200px;
 	margin: auto;
-	padding: 100px 0;
 	font-family: helvetica;
 	position: relative;
-	padding: 0px 0 100px 0;
+	padding: 30px 0 100px 0;
 }
 #current-section,
 #next-section {
@@ -218,3 +217,7 @@ body {
 #admin {
 	padding-top: 30px;  
 }	
+
+.error-message {
+	color:red;
+}

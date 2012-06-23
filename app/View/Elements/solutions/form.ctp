@@ -11,23 +11,31 @@ $this->Html->scriptBlock("
 	 })
 ",array('inline'=>false));
 
-/*
+
     $this->Html->scriptBlock("
     $(document).ready(function() { 
 	   	$('#SolutionCategory').autocomplete({
-	  		source:".$jscatarray." ,		        
+	  		source:".$jscatarray." ,	
+	  		search:function() {
+	  			$('#showall').data('state','on');	
+	  		}	,        
 	     	minLength:0
 	     	
 		});
 		$('#showall').on('click', function () {
-	 	   $('#SolutionCategory').autocomplete('search' , '');
+		   if ($(this).data('state') != 'on') {
+		 	   $('#SolutionCategory').autocomplete('search' , '');
+		 	   $(this).data('state','on');
+		 	} else {
+		 		$('#SolutionCategory').autocomplete('close');
+		 		$(this).data('state','off');
+		 	}	   
 	 	   return false;
 		});
    });
    
    ",array('inline'=>false));
- * 
- */
+
 ?>
   
   
@@ -44,13 +52,13 @@ $this->Html->scriptBlock("
     	'fieldset'=>false,'legend'=>false,'after'=>'</span>')); 
 		
 		
-		$options = array('network' => 'Network Operations', 'security' => 'Security', 'dashboard' => 'Dashboards', 'cem' => 'CEM & Marketing'); 
+		//$options = array('network' => 'Network Operations', 'security' => 'Security', 'dashboard' => 'Dashboards', 'cem' => 'CEM & Marketing'); 
 		
-		echo $this->Form->input('category',array('options'=>$options)); 
+		//echo $this->Form->input('category',array('options'=>$options)); 
 		#$options = array('cat1' => 'cat11', 'cat2' => 'cat22'); 
 		
-		//echo $this->Form->input('category');
-		//echo '<button id="showall">Show all</button>';
+		echo $this->Form->input('category',array('after' =>'<a href="#" id="showall">V</a>'));
+	
 		?>
 		 
 	<?php	

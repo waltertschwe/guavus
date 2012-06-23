@@ -129,6 +129,9 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
+define('MEDIA', '/guavus/cakephp/app/webroot/media/');
+define('MEDIABACKEND', '/var/www/html/guavus/cakephp/app/webroot/media/');
+ 
 function monthMap( $monthNumber ) {
 	
 	switch ($monthNumber) {

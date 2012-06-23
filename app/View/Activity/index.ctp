@@ -85,7 +85,17 @@
 	<tr class="gradeU">
  		<td class="center"><?php echo $activity['Activity']['solution']; ?></td>
  		<td class="center"><?php echo $activity['Activity']['accesskey']; ?></td>
- 		<td><?php echo $activity['Activity']['date']; ?></td>
+ 		<td class="center">
+ 			<?php 
+				$logDate = $activity['Activity']['date']; 
+				$parts = explode(" ", $logDate);
+				$fullMonth = $parts[0];
+				$date = explode("-", $fullMonth);
+				$monthNum = $date[1];
+				$month = monthMap($monthNum);
+				echo $date[0]. "-" .$month . "-" . $date[2];
+			 ?>
+ 		</td>
  		<td>
 				<?php 
 					$isDownload = $activity['Activity']['isDownload'];

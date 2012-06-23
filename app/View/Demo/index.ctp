@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html class="seconardy-page">
 	<head>
-		
-		
+	
 		<?php 
 			  echo $this->Html->script(array('jquery-1.7.2.min.js'));
 			  echo $this->Html->script(array('underscore-min.js'));
 			  echo $this->Html->script(array('backbone-min.js'));
-			  echo $this->Html->css('cda.css');
+	  		  echo $this->Html->script(array('video.min.js'));
+	  		  echo $this->Html->css(array('video-js.css'));
 			  echo $this->fetch('meta');
-			  echo $this->fetch('css');
+			  //echo $this->fetch('css');
+			  echo $this->Html->css('cda.css?x=4');
 			  echo $this->fetch('script');
 			  
 		?>
-		
+		 <script>
+    		_V_.options.flash.swf = "/guavus/cakephp/js/video-js.swf";
+  		</script>
 		<style>
 			#open-div {
 				display:none;
@@ -35,9 +38,11 @@
 				opacity: 1;		
 				border:1px solid #111111;
 				padding-left:10px;
-				-moz-border-radius-topright: 20px;
-				-webkit-border-top-right-radius: 20px;
+				border-top-right-radius: 20px;
+				border-bottom-right-radius: 20px;
+				-moz-border-radius-topright: 20px; 
 				-moz-border-radius-bottomright: 20px;
+				-webkit-border-top-right-radius: 20px;
 				-webkit-border-bottom-right-radius: 20px;
 					
 				}
@@ -72,11 +77,49 @@
 		
 		<script type="text/javascript">
 			var guavusdisp = {}
-			
+			guavusdisp.tracker = function() {
+				
+				var handleLinkClick = function () {
+				
+
+					var linkhash = {
+						download:{isDownload:1},
+						slide_name:{isSlide:1},
+						demo_url:{isDemo:1}, 
+						feedback:{isEmail:1}
+					};
+					$.each(linkhash,function(key,val) {
+						
+						$('#tool-bar').on('click','a#'+key,function(event) {
+							event.preventDefault();
+							var dat = { 
+								accesskey: '<?php echo $accesskey ?>', 
+								solution: $('body').data('product'), 
+								isDownload: '',
+								isSlide: '', 
+								isDemo: '', 
+								isEmail: ''
+						 	}
+							dat = $.extend(dat,val); 
+							console.log(dat);
+							$.post("/guavus/cakephp/demo/processactivity",dat)
+							return false;
+							location.href = $(this).attr('href');
+						});	
+						
+					});
+
+				}
+				return {
+					init : function() {
+						handleLinkClick();
+					}
+				}	
+			}()
 		
 			
 			guavusdisp.slide = function() {
-				
+				var vplayer = "";
 				var handleIndexExpand = function() {
 					$('#colleft').on('click','.product-expand',function(event) {
 						event.preventDefault();
@@ -104,6 +147,10 @@
 						event.preventDefault();
 						$("#panel").toggle("fast");
 						$("#open-div").css('display','block');
+						if ($('#vidplayer').data('reload') == true) {
+							$('#vidplayer').data('reload',false);
+							vplayer.play();
+						}	
 						return false;
 					});
 					
@@ -121,12 +168,26 @@
 
 					
 				}
+				
+				var handleMenuItemClick =function() {
+					$('.prod-items').on('click','a',function(event) {
+
+					
+					/*
+					 set video status to reload in order to trigger auto play back on 
+					 menu close
+					 */
+					$('#vidplayer').data('reload',true);
+					});
+				}
 				return {
 					init:function() {
+						vplayer = _V_("vidplayer");
 						handleCenter();
 						handleOpen();
 						handleClose();	
 						handleIndexExpand();
+						handleMenuItemClick();
 					}
 				}
 			}();
@@ -134,51 +195,45 @@
 
 			$(document).ready(function(){
 				guavusdisp.slide.init();
-			//	new SolutionRouter();
-			//	Backbone.history.start();
-				
+				guavusdisp.tracker.init();
+				_V_("vidplayer", {}, function(){
+      // Player (this) is initialized and ready.
+    			});
 			});
-		</script>			
+		</script>				
 	</head>
 	<body>
-
-	<script type="text/template" id="solution_template">
+		
+		
+		
 		<div id="wrap">
-			<div id="main">
-				
-				
-				<div id="current-section"><%=name %></div>
-				<div id="next-section">Next (Campaign Management)</div>
-				<div id="title-content">
-					<h1>Roaming Reduction</h1>
-					<p class="desc"><%=notes %>Sed tincidunt dictum viverra. Aliquam cursus, nunc ac feugiat suscipit, nunc lorem porta nisi, id euismod diam elit vel mi. Mauris volutpat accumsan consectetur. Aenean ut odio nec justo sagittis egestas. Sed elit lorem, interdum id pretium blandit, hendrerit non odio. Nam rhoncus pulvinar interdum. Nullam posuere erat nec nisl adipiscing ac tincidunt odio fermentum. Sed quis sem ante.</p>
-				</div>			
-			
+		<div id="main">
+			<div id="current-section">wireless</div>
+			<div id="next-section">Next (Campaign Management)</div>
+			<div id="title-content">
+				<h1>Roaming Reduction</h1>
+				<p id="notes" class="desc">Sed tincidunt dictum viverra. Aliquam cursus, nunc ac feugiat suscipit, nunc lorem porta nisi, id euismod diam elit vel mi. Mauris volutpat accumsan consectetur. Aenean ut odio nec justo sagittis egestas. Sed elit lorem, interdum id pretium blandit, hendrerit non odio. Nam rhoncus pulvinar interdum. Nullam posuere erat nec nisl adipiscing ac tincidunt odio fermentum. Sed quis sem ante.</p>
+			</div>				
 			<div class="video-content">
-					<video width="850" height="477" controls preload="auto" id="vidplayer">
-						<source type="video/mp4" src="<%=video_name %>"></source>
+					<video width="850" height="477" class="video-js vjs-default-skin"  controls id="vidplayer">
+						<source type="video/mp4" src=""></source>
 					</video> 
 			</div>
-				<div id="sidebar">
-					<div id="tool-bar">
-					<%=demo_url %>
-					<%=slide_name %>					
-					<ul>
-						<li class="download"><a href="#download">Download Presentation</a></li>
-						<li class="slides"><a href="#quick-slides">Quick-view Slides</a></li>
-						<li class="launch-demo"><a href="#Launch-demo">Launch Demo</a></li>
-						<li class="feedback"><a href="#feedback">Tell us what you think</a></li>
-					</ul>
-				</div>
+		<div id="sidebar">
+			<div id="tool-bar">
+				<ul>
+					<li class="download"><a id="download" href="">Download Presentation</a></li>
+					<li class="slides"><a id="slide_name" href="">Quick-view Slides</a></li>
+					<li class="launch-demo"><a id="demo_url" href="">Launch Demo</a></li>
+					<li class="feedback"><a id="feedback" href="">Tell us what you think</a></li>
+				</ul>
 			</div>
-			<div class="logo">
-				<?php echo $this->Html->image('guavus.png'); ?>
-			</div>
-		</div></div>
-		</script>			
-		<div id="container">
 		</div>
-		<div id="open-div">
+		<div class="logo">
+				<?php echo $this->Html->image('guavus.png'); ?>
+		</div>
+	</div>
+	<div id="open-div">
 			<a class="open-slide" href="#">&gt;</a>
 		</div>
 		
@@ -250,12 +305,21 @@
 
 			var SolutionView = Backbone.View.extend({
 		
-				el:'#container', 
-				template:_.template($('#solution_template').html()),
+				el:'#wrap', 
+				myPlayer:_V_("vidplayer"),
 				render:function(id) {
-		
-					$(this.el).html(this.template(this.model.toJSON()));
-
+					this.myPlayer.pause();
+					$(this.el).find('h1').html(this.model.get('name'));
+					$(this.el).find('#notes').html(this.model.get('notes'));
+					$(this.el).find('#slide_name').attr('href',this.model.get('slide_name'));
+					$(this.el).find('#demo_url').attr('href',this.model.get('demo_url'));
+					$(this.el).find('#notes').html(this.model.get('notes'));
+					this.myPlayer.src(this.model.get('video_name'));
+					$('body').data('product',this.model.get('name'));
+					
+					
+//					$(this.el).find('video>source')[0].src = this.model.get('video_name');
+//					$(this.el).find('video')[0].load();
 				}
 			})
 
@@ -270,15 +334,15 @@
 					foreach ($menuItems as $mitem) {
 						$id = $mitem['id'];
 						$name = $mitem['name'];	
-						$notes = $mitem['notes'];
-						$video_name = $mitem['video_name'];
-						$slide_name = $mitem['slide_name'];
+						$notes = json_encode($mitem['notes']);
+						$video_name = MEDIA . $mitem['video_name'];
+						$slide_name = MEDIA . $mitem['slide_name'];
 						$demo_url = $mitem['demo_url'];
 						
 						echo "this.slist.add({
 							id:'$id',
 							name:'$name',
-							notes:'$notes',
+							notes:$notes,
 							video_name:'$video_name',
 							slide_name:'$slide_name',
 							demo_url:'$demo_url'
@@ -292,19 +356,16 @@
 			},
 				changeSolution: function(id) {
 					sview = new SolutionView({model:this.slist.get(id)});
+					
 					sview.render();
 				},
 				renderIndex: function() {
 					id = $('.prod-items dd a').first().attr('href').split("#")[1]
 					sview = new SolutionView({model:this.slist.get(id)});
+					
 					sview.render();	
 				}
 			});
-			
-	
-			
-
-			
 			$(document).ready(function(){
 				new SolutionRouter();
 				Backbone.history.start();
@@ -312,6 +373,6 @@
 			
 			});	
 
-</script>
+		</script>
 	</body>
 </html>	

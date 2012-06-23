@@ -19,7 +19,26 @@
 		?>
 		<script type="text/javascript">			
 			$(document).ready(function() { 
-	 
+			$('#CustomerkeyAccesskey').blur(function(event) {
+	 				$this = $(this);
+	 				$.ajax({ 
+ 						type: 'POST',
+  					    url: '<?php echo $this->Html->url(array("controller"=>'Customerkeys','action'=>'validatekey'))?>',
+  						data: {accesskey:$(this).val(),
+  							customerkey_id:'<?php echo $customerkey_id;?>'
+  							},
+  						success: function(data) {
+  							$this.next('.error-message').remove();
+  							var errMsg = "";
+							$.each($(data),function(i,el){
+								errMsg += el;
+							})  							
+  							$('<div class="error-message">'+errMsg+'</div>').insertAfter($this);
+  							
+  						}
+  						
+					});
+				});		 
     			$('.cancel button').click(function(event) {
 			    location.href='<?php echo $url;?>' 			
      		});

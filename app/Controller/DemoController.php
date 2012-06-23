@@ -1,7 +1,7 @@
 <?php
 class DemoController extends AppController {
-	var $uses = array('Customerkey','Solution');
-	public function index() {
+	var $uses = array('Customerkey','Solution','Activity');
+	public function indexold() {
 		$this->layout = 'cda';
 		$lhash = $this -> Session -> read('lhash');
 		$accesskey = $lhash['accesskey'];
@@ -11,26 +11,25 @@ class DemoController extends AppController {
 			
 	}
 	
-	public function index2() {
+	public function index() {
 		$this->layout = 'cda';
 		$lhash = $this -> Session -> read('lhash');
 		$accesskey = $lhash['accesskey'];
-		$menuItems = $this->Customerkey->find('first',array('conditions'=>array('accesskey'=>$accesskey)));
-		$menuItems = $menuItems['Solution'];
+		$customerkey = $this->Customerkey->find('first',array('conditions'=>array('accesskey'=>$accesskey)));
+		$menuItems = $customerkey['Solution'];
 		$this->set('menuItems',$menuItems);
-			
+		$this->set('accesskey',$customerkey['Customerkey']['accesskey']);	
 	}
 	
 	public function beforeFilter() {
 		if (!in_array($this->action,array('login','logout'),true)) {
 			$lhash = $this -> Session -> read('lhash');
 			if ($lhash == "") {
-				$this->Session->setFlash(__('Not logged in'));
+//				$this->Session->setFlash(__('Not logged in'));
 				$this->redirect(array('action' => 'login'));		
 			} else {
-				$this->Session->setFlash(__('Logged in'));
 				if(strtotime($lhash['expiration_date']) < strtotime(date('Y-m-d')) ) {
-					$this->Session->setFlash(__('Date Expired'));
+					$this->Session->setFlash(__('The key has Expired'));
 					$this -> Session -> destroy();	
 					$this->redirect(array('action' => 'login'));		
 				
@@ -51,11 +50,10 @@ class DemoController extends AppController {
 				
 				
 				if(strtotime($cdate) < strtotime(date('Y-m-d')) ) {
-					$this->Session->setFlash(__('Key has already Expired'));
+					$this->Session->setFlash(__('This key has expired'));
 					$this->redirect(array('action' => 'login'));		
 					
 				} else {
-					$this->Session->setFlash(__('You have logged in'));
 					$this->Session->write('lhash',
 					array('accesskey'=>$customerkey['Customerkey']['accesskey'],
 					 'expiration_date'=>$customerkey['Customerkey']['expires']						
@@ -65,7 +63,7 @@ class DemoController extends AppController {
 				
 		
 			} else {
-				$this->Session->setFlash(__('Customerkey does not exist'));	
+				$this->Session->setFlash(__('Invalid key'));	
 				$this->redirect(array('action' => 'login'));		
 							
 			}
@@ -96,6 +94,50 @@ class DemoController extends AppController {
 		
 	}
 		
+	public function processactivity() {
+		$this->layout = 'ajax';	
+		$today = date("Y-m-d"); 		
+		if ($this->request->is('post')) {	
+			$dat = $this->request->data;
+			$arr = array('isDownload','isSlide','isDemo','isEmail');
+			$accesskey =$dat['accesskey'];
+			$solution = $dat['solution'];
+			$today = date("Y-m-d"); 		
+			$activity = $this->Activity->find('first',array('conditions'=>
+			array('accesskey'=>$accesskey,
+			'solution'=>$solution,'date'=>$today)));
+			if ($activity) {
+				$id = $activity['Activity']['id'];
+				$this->Activity->read(null,$id);
+				
+			//	$this->Activity->id = $id;
+				foreach ($arr as $item) {
+					if ($dat[$item] ==1) {
+						$count = $this->Activity->data['Activity'][$item];
+						if ($count != "") {
+							$count = $count +1;
+							
+							
+						} else {
+							$count = 1;
+						}
+						$this->Activity->set($item,$count);
+					}
+				}
+				$this->Activity->save();
+			} else {
+				$dat['date'] = $today;
+				$this->Activity->create();
+				$this->Activity->save(array('Activity'=>$dat));
+				
+			}
+		
+        } 
+		
+	
+		
+	}
+	
 	
 
 }

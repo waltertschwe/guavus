@@ -25,7 +25,7 @@ $this->Html->scriptBlock("
 
 	 	<?php echo $this->Form->create('Customerkey', array('class' => 'form')); ?>
         <?php echo $this->Form->input('customer'); ?>       
-        <?php echo $this->Form->input('accesskey'); ?>
+        <?php echo $this->Form->input('accesskey',array('maxlength'=>'40')); ?>
       
       <div id='products'><label>Product</label>  
       	<div class="groups">

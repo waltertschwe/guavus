@@ -19,6 +19,13 @@
 
 ?>
 
+
+<style type="text/css">
+	#example_length
+	{ display: none; }
+</style> 
+
+
 <div id="title">
 	Solutions
 </div>
@@ -30,26 +37,22 @@
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
     <thead>
     <tr>
-    	<th>Name</th>
-        <th>Vertical</th>
-        <th>Category</th>
-        <th>Demo URL</th>
-		<th>Slides</th>
-		<th>Notes</th>
+    	<th>Vertical</th>
+    	<th>Solution</th>
+        <th>Solution Category</th>
+		<th>Media</th>
     </tr>
 	</thead>
     <!-- Here is where we loop through our $posts array, printing out post info -->
 
     <?php foreach ($solutions as $solution): ?>
 	<tr class="gradeU">
+		 <td class="center"><?php echo $solution['Solution']['product']; ?></td>
 		<td>
 			 <?php 
 			 	echo $this->Html->link($solution['Solution']['name'], array('action' => 'edit', $solution['Solution']['id']));?> 		
 		</td>    	
-    	
-        <td class="center"><?php echo $solution['Solution']['product']; ?></td>
         <td class="center"><?php echo $solution['Solution']['category']; ?></td>
-        <td class="center"><?php echo $solution['Solution']['demo_url']; ?></td>
         <td>
         	<?php
         		$video = $solution['Solution']['video_name'];
@@ -68,17 +71,13 @@
         	?>
         	
         </td>
-        <td><?php echo $solution['Solution']['notes']; ?></td>
-
     </tr>
     <?php endforeach; ?>
     <tfoot>
-   		<th>Name</th>
-        <th>Vertical</th>
-        <th>Category</th>
-        <th>Demo URL</th>
-		<th>Slides</th>
-		<th>Notes</th>
+    	<th>Vertical</th>
+   		<th>Solution</th>
+        <th>Solution Category</th>
+        <th>Media</th>
 	</tfoot>
 </table>
 </div>
