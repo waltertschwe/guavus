@@ -21,7 +21,7 @@ class SolutionsController extends AppController {
 
 	
 	private function uploadFile($field) {
-		$target = '/opt/files/';
+		$target = MEDIA;
 		$fileArray = $this->request->data['Solution'][$field];		
 		//var_dump($fileArray);
 		//exit();
@@ -39,11 +39,9 @@ class SolutionsController extends AppController {
 	
 			return true;
 			
-		}
-			
+		}		
 	}
 	
-
     public function index() {
 		
        // $this->Solution->recursive = 0;
@@ -66,13 +64,19 @@ class SolutionsController extends AppController {
     	//$this->layout = 'viewlayout';
     	$this->Solution->recursive = 0;
         $this->set('solutions', $this->paginate());
-	//	$this->set('jscatarray',$this->getCategories());
+		$this->set('jscatarray',$this->getCategories());
 		
 	//	$products = $this->Solution->Product->find('list');
 	//	$this->set(compact('products'));
 		
         if ($this->request->is('post')) {	
 			$solution = $this->request->data;
+			
+			$videoFile = $solution['Solution']['video']['name'];
+			$slideFile = $solution['Solution']['slide']['name'];
+			
+			$solution['Solution']['video_name'] = $videoFile;
+			$solution['Solution']['slide_name'] = $slideFile;
 			
 			// TODO: setup solution to products association
 		//	if (is_array($solution['Solution']['products'])) {
@@ -98,6 +102,8 @@ class SolutionsController extends AppController {
 		
     	$this->Solution->recursive = 0;
         $this->Solution->id = $id;
+		$this->set('jscatarray',$this->getCategories());
+		
         if (!$this->Solution->exists()) {
             throw new NotFoundException(__('Invalid solution'));
         }
