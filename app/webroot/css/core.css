@@ -98,7 +98,7 @@ p {text-align:center}
         -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;  
         } 
       
-    input#CustomerkeyExpires {
+    input#SolutionCategory, input#CustomerkeyExpires {
     	width:250px;
     	margin-right:10px;
     }
@@ -240,4 +240,5 @@ p {text-align:center}
 
 .form .error-message {
 color: red;
+padding-left:110px;
 }
