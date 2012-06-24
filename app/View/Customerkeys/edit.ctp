@@ -48,7 +48,12 @@
 <div id="container" style="width:90%">
 	<div id="header">
 		<div id="logo">
-		<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
+		<?php echo
+		 		$this->Html->link( 
+		 			$this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')),
+		 			'../',
+		 			array('escape' => false));
+		 ?>
 		</div>
 		<div id="new-key">
 			

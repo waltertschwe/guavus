@@ -39,7 +39,12 @@
 <div id="container" style="width:90%">	
 	<div id="activity-header">
 		<div id="logo">
-		 	<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
+		 	<?php echo
+		 		$this->Html->link( 
+		 			$this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')),
+		 			'../',
+		 			array('escape' => false));
+		 	?>
 		</div><!-- Header End -->
 		<div id="activity-right">
 		</div>

@@ -44,11 +44,16 @@
 <div id="container" style="width:90%">	
 	<div id="header">
 		<div id="logo">
-		 	<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
+		 	<?php echo
+		 		$this->Html->link( 
+		 			$this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')),
+		 			'../',
+		 			array('escape' => false));
+		 	?>
 		</div><!-- Header End -->
 		<div id="new-key">
 		 <?php	
-				echo $this->Form->create('Customerkey', array('action' => 'add')); 
+				echo $this->Form->create('Customerkey', array('action' => 'add', 'type' => 'GET')); 
 				echo $this->Form->input('New Key', array('type'=>'submit','label'=>false));
 				echo $this->Form->end();
 		?>
