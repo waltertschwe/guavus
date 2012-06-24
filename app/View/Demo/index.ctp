@@ -74,15 +74,38 @@
 					})		
 			
 				}
+				
+					
+				
 				var handleAutoClose = function() {
+					
+			
+					
 					$('#panel table').on('mouseenter',function() {
 						if (timer) clearTimeout(timer);
 					}) 
 					$('#panel table').on('mouseleave',function() {
+
+					function closeit () {
+						//declared closeit to get rid of flicker.
+						//triggering the click event on close-slide somehow causes a flicker
+						if (timer) clearTimeout(timer);
+						$("#panel").toggle("fast");
+						$("#open-div").css('display','block');
+						if ($('#vidplayer').data('reload') == true) {
+							$('#vidplayer').data('reload',false);
+							vplayer.play();
+						}	
+						slidestate = 'close';
+
+
+						return false;
+					
+				}	
 					
 						if (slidestate != 'close') {
-								timer = setTimeout("$('.close-slide').trigger('click')", 2000)
-								
+							//	timer = setTimeout("$('.close-slide').trigger('click')", 2000)
+		timer = setTimeout(closeit, 2000)								
 							}
 	
 					}) 
@@ -103,6 +126,9 @@
 				    });
 					
 				} 
+				
+
+				
 				
 				var handleClose = function() {
 					$(".close-slide").click(function(event){
