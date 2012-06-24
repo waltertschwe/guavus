@@ -77,7 +77,6 @@
 				var handleAutoClose = function() {
 					$('#panel table').on('mouseenter',function() {
 						if (timer) clearTimeout(timer);
-						console.log(timer);
 					}) 
 					$('#panel table').on('mouseleave',function() {
 					
@@ -85,7 +84,6 @@
 								timer = setTimeout("$('.close-slide').trigger('click')", 2000)
 								
 							}
-						console.log(timer);
 	
 					}) 
 				}		
@@ -220,10 +218,10 @@
 
 			if (isset($products[$prod][$cat]) ) {
 				
-				$products[$prod][$cat] .= "<dd><a href='#".$mitem['id']."'>".$mitem['name']."</a></dd>";
+				$products[$prod][$cat] .= "<dd><a class='menitem' href='#".$mitem['id']."'>".$mitem['name']."</a></dd>";
 				#$count[$key] += 1;
 			} else {
-				$products[$prod][$cat] = "<dd><a href='#".$mitem['id']."'>".$mitem['name']."</a></dd>";				
+				$products[$prod][$cat] = "<dd><a class='menitem' href='#".$mitem['id']."'>".$mitem['name']."</a></dd>";				
 
 				#$count[$key] = 1;
 			}
@@ -280,8 +278,10 @@
 					
 					var id = this.model.get('id');
 					var nextInd = itemOrderList['#' + id] +1;
-					if (nextInd < itemsList.length -1 ) {
-						console.log($(itemsList[nextInd]).text());
+					$('#next-section').html('');
+					if (nextInd < itemsList.length) {
+						$('#next-section').html('<a href="'+$(itemsList[nextInd]).attr('href')+'">Next ('+$(itemsList[nextInd]).text()+')</a>')
+						
 					}
 						
 
@@ -306,7 +306,7 @@
 					$(this.el).find('#download').attr('href',logpath + '/'+ 1 + middle + encodeURIComponent(this.model.get('video_name')));					
 					$(this.el).find('#slide_name').attr('href',logpath + '/' +2  + middle +encodeURIComponent(this.model.get('slide_name')));
 					$(this.el).find('#demo_url').attr('href',logpath + '/' + 3 + middle +encodeURIComponent(this.model.get('demo_url')));
-					$(this.el).find('#feedback').attr('href',logpath + '/' + 4 + middle +encodeURIComponent('mailto:wschweitzer00@gmail.com'));
+					$(this.el).find('#feedback').attr('href',logpath + '/' + 4 + middle +encodeURIComponent('wschweitzer00@gmail.com'));
 					
 
 					this.myPlayer.src(mediaPath +this.model.get('video_name'));
@@ -371,7 +371,7 @@
 			var itemsList = "";
 			var itemOrderList = {};
 			$(document).ready(function(){
-				itemsList = $('.prod-items a');
+				itemsList = $('.prod-items a.menitem');
 				itemOrderList = {};
 				$.each(itemsList, function(i,el) {
 					itemOrderList[$(el).attr('href')] = i; 

@@ -71,6 +71,7 @@ class ActivityController extends AppController {
 	            header("Content-type:video/mp4");
 				header("Content-Disposition:attachment;filename=" . $resource);
 				readfile(MEDIABACKEND . $resource);
+				die();
 	      		break;
   		    case 2:
   			    
@@ -105,14 +106,18 @@ class ActivityController extends AppController {
 				header("Content-type:application/zip");
 				header("Content-Disposition:attachment;filename=" . $resource);
 				readfile(MEDIABACKEND . $resource);
+				die();
    			    break;
 				
 		    case 3:
 				$url = urldecode($resource);
 		        $this->redirect($url);
+				die();
     			break;
 			case 4:
-				header('Location: mailto:wschweitzer00@gmail.com');
+				//$this->redirect("http://gmail.com");
+				header("Location: mailto:wschweitzer00@gmail.com");
+				die();
 				break; 
 			}
 		

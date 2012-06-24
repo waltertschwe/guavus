@@ -298,7 +298,7 @@ body {
 
 #panel dt {
 	font-size: 18px;
-    font-weight: bold;
+    font-family: helvetica, cursive, Serif;
 	text-indent: -15px;
 	margin-bottom: 15px;
 }
@@ -311,7 +311,7 @@ body {
 #panel dd a {
 	color: #000000;
     font-size: 18px;
-    font-weight: bold;
+    font-family: helvetica, cursive, Serif;
 	text-decoration: none;
 }
 
