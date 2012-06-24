@@ -26,10 +26,13 @@
 		 	?>
 		</div><!-- Header End -->
 		<div id="new-key">
-			<?php echo $this->Form->create('Solution', array('action' => 'add', 'type' => 'GET')); 
-				 // echo $this->Form->create('Solution',array('type' => 'file','class'=>'form', 'action' => 'add')); 
-				  echo $this->Form->input('New Solution', array('type'=>'submit','label'=>false));
-				  echo $this->Form->end();
+			<?php 
+				  $pageAction = $this->request->params['action'];
+				  if ($pageAction != 'add') {	
+				  	 echo $this->Form->create('Solution', array('action' => 'add', 'type' => 'GET')); 
+				 	 echo $this->Form->input('New Solution', array('type'=>'submit','label'=>false));
+				 	 echo $this->Form->end();
+				  }
 			?>
 		</div>
 		<div id="nav">
