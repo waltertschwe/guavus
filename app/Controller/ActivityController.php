@@ -21,21 +21,27 @@ class ActivityController extends AppController {
 	public function logdata($id = null) {
 		$this->layout = 'viewlayout';
 		
-		$activity = array(); 
+		$activity = array(); 	
+		$sessionid = $this->Session->id(session_id());
 		
-		if($this->Session->read('ActivityId')) {
-			$activityId = $this->Session->read('ActivityId');
-			$activity = $this->Activity->find('first', array('conditions'=> array('id'=> $activityId)));
-		} 
+		if(empty($sessionid)) {
+			$this->Session->start();
+			$sessionid = $this->Session->id(session_id());
+		} else {
+			$activity = $this->Activity->find('first', array('conditions'=> array('sessionid'=> $sessionid)));
+		}
 		
-		$solution = $this->Solution->find('first',array('conditions'=>array('id'=>'20')));
+		$activity['Activity']['sessionid'] = $sessionid;
+		
+		
+		$solution = $this->Solution->find('first',array('conditions'=>array('id'=>'31')));
 		$solutionName = $solution['Solution']['name'];		
-		$customerkey_id = 43;
+		$customerkey_id = 47;
 		
 		$customerData = $this->Customerkey->find('first',array('conditions'=>array('id'=>$customerkey_id)));
 		$customerKey = $customerData['Customerkey']['accesskey'];
 		
-		$today = date('m-d-Y');
+		$today = date("Y-m-d"); 	
 		
 		$activity['Activity']['solution'] = $solutionName;
 		$activity['Activity']['accesskey'] = $customerKey;
@@ -60,11 +66,6 @@ class ActivityController extends AppController {
 		
 		$this->Activity->save($activity);
 		
-		if(!$this->Session->read('ActivityId')) {
-			$lastId = $this->Activity->getLastInsertID();
-			$this->Session->write('ActivityId', $lastId);
-			echo "last Id = " . $lastId;
-		}
 	}
 
 	public function afterFilter() {
