@@ -15,10 +15,7 @@
 					$('tbody').on('click','.product-expand',function(event) {
 					event.preventDefault();
 					$(this).closest('.prod-group').find('.prod-items').toggle();
-			
-			
 					})		
-		
 				}
 		
 				$(document).ready(function() {
@@ -28,19 +25,25 @@
 				});
 				handleIndexExpand();
 			} );
-			
-
 		</script> 
+		<style type="text/css">
+			#example_length
+			{ display: none; }
+			<?php if(count($data) < 99) {  
+					echo "#example_paginate { display: none; }";
+			} ?>
+		</style> 
+
 	</head>
 <body id="dt_example">
 <div id="container" style="width:90%">	
-	<div id="header">
+	<div id="activity-header">
 		<div id="logo">
 		 	<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
 		</div><!-- Header End -->
-		<div id="new-key">
+		<div id="activity-right">
 		</div>
-		<div id="nav">
+		<div id="activity-nav">
 			<ul>
 				<li>
 					<?php echo $this->Html->link(
@@ -97,6 +100,8 @@
 			 ?>
  		</td>
  		<td>
+ 			<div id="tool-bar">
+				<ul>
 				<?php 
 					$isDownload = $activity['Activity']['isDownload'];
 					$isSlide    = $activity['Activity']['isSlide'];
@@ -104,6 +109,7 @@
 					$isEmail    = $activity['Activity']['isEmail'];
 					if($isDownload) {
 						echo $this->Html->image('download.png'); 
+						//echo "<li class=\"download\"><a id=\"download\" href=\"\" target=\"_blank\">Download Presentation</a></li>";
 						echo "&nbsp;";	
 					}
 
@@ -121,6 +127,8 @@
 						echo $this->Html->image('email.png');
 					}	
 				?>
+				</ul>
+			</div>
 		</td>
  	</tr>
 <?php } ?>

@@ -56,8 +56,8 @@ $this->Html->scriptBlock("
 		
 		//echo $this->Form->input('category',array('options'=>$options)); 
 		#$options = array('cat1' => 'cat11', 'cat2' => 'cat22'); 
-		
-		echo $this->Form->input('category',array('after' =>'<a href="#" id="showall">V</a>'));
+		$arrowDown = $this->Html->image('arrow-down.png', array('height' => '20', 'width' => '20'));
+		echo $this->Form->input('category',array('after' =>'<a href="#" id="showall">' . $arrowDown . '</a>'));
 	
 		?>
 		 

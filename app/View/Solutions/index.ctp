@@ -23,6 +23,9 @@
 <style type="text/css">
 	#example_length
 	{ display: none; }
+	<?php if(count($solutions) < 99) {  
+		echo "#example_paginate { display: none; }";
+	} ?>
 </style> 
 
 

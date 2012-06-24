@@ -117,8 +117,6 @@ body {
 	border: 0;
 }
 
-
-
 /* main page end*/
 
 /* secondary page */
@@ -169,7 +167,7 @@ body {
 
 #tool-bar,
 #tool-bar a {
-	font-size: 16		px;
+	font-size: 16px;
 	color: #7b7b7b;
 }
 #tool-bar li {
@@ -221,3 +219,62 @@ body {
 .error-message {
 	color:red;
 }
+
+
+#open-div {
+	display:none;
+	position:absolute;
+	top:150px;
+	font-size:50px;
+}
+.prod-items {
+	display:none;
+}
+#panel {
+	display:none;
+	position:absolute;
+	top:100px;
+	background:#FFFFFF;
+	left:0;
+	width:250px;
+	z-index:10000;
+	opacity: 1;		
+	border:1px solid #111111;
+	padding-left:10px;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	-moz-border-radius-topright: 20px; 
+	-moz-border-radius-bottomright: 20px;
+	-webkit-border-top-right-radius: 20px;
+	-webkit-border-bottom-right-radius: 20px;
+		
+	}
+
+#panel #colleft {
+	width:230px;
+}
+
+#panel #colright {
+	width:10px; 
+	vertical-align:middle;
+}
+#panel .close {
+	
+}
+#content-left{
+	float:left;
+	width:75%	
+}
+#content-right {
+	float:right;
+	width:25%;
+}
+
+#container {
+	margin: 30px auto;
+	width:95%;
+}
+
+
+
+

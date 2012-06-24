@@ -21,9 +21,10 @@
 		 	<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
 		</div><!-- Header End -->
 		<div id="new-key">
-		<?php echo $this->Html->link('Add New Solution',
-array('controller' => 'solutions', 'action' => 'add')); ?>
-	
+			<?php echo $this->Form->create('Customerkey', array('action' => 'add')); 
+				  echo $this->Form->input('New Solution', array('type'=>'submit','label'=>false));
+				  echo $this->Form->end();
+			?>
 		</div>
 		<div id="nav">
 			<ul>
@@ -33,7 +34,6 @@ array('controller' => 'solutions', 'action' => 'add')); ?>
     					array('controller' => 'customerkeys', 'action' => 'index'),
 						array('escape' => false));
 					?>
-					
 				</li>
 				<li>
 					<?php	echo $this->Html->link(

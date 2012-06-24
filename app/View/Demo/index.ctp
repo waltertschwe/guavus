@@ -10,78 +10,19 @@
 	  		  echo $this->Html->css(array('video-js.css'));
 			  echo $this->fetch('meta');
 			  //echo $this->fetch('css');
-			  echo $this->Html->css('cda.css?x=4');
+			  echo $this->Html->css('cda.css');
 			  echo $this->fetch('script');
 			  
 		?>
 		 <script>
     		_V_.options.flash.swf = "/guavus/cakephp/js/video-js.swf";
   		</script>
-		<style>
-			#open-div {
-				display:none;
-				position:absolute;
-				top:150px;
-				font-size:50px;
-			}
-			.prod-items {
-				display:none;
-			}
-			#panel {
-				display:none;
-				position:absolute;
-				top:100px;
-				background:#FFFFFF;
-				left:0;
-				width:250px;
-				z-index:10000;
-				opacity: 1;		
-				border:1px solid #111111;
-				padding-left:10px;
-				border-top-right-radius: 20px;
-				border-bottom-right-radius: 20px;
-				-moz-border-radius-topright: 20px; 
-				-moz-border-radius-bottomright: 20px;
-				-webkit-border-top-right-radius: 20px;
-				-webkit-border-bottom-right-radius: 20px;
-					
-				}
-			
-			#panel #colleft {
-				width:230px;
-			}
-			
-			#panel #colright {
-				width:10px; 
-				vertical-align:middle;
-			}
-			#panel .close {
-				
-			}
-	
-			#content-left{
-				float:left;
-				width:75%	
-			}
-			#content-right {
-				float:right;
-				width:25%;
-			}
-			
-			#container {
-				margin: 30px auto;
-				width:95%;
-			}
-	
+		<style type="text/css">
 		</style>
-		
 		<script type="text/javascript">
 			var guavusdisp = {}
 			guavusdisp.tracker = function() {
-				
 				var handleLinkClick = function () {
-				
-
 					var linkhash = {
 						download:{isDownload:1},
 						slide_name:{isSlide:1},
@@ -101,9 +42,7 @@
 								isEmail: ''
 						 	}
 							dat = $.extend(dat,val); 
-							console.log(dat);
-							$.post("/guavus/cakephp/demo/processactivity",dat)
-							return false;
+							$.post("/guavus/cakephp/demo/test",dat)
 							location.href = $(this).attr('href');
 						});	
 						
@@ -120,6 +59,7 @@
 			
 			guavusdisp.slide = function() {
 				var vplayer = "";
+				var timer = "";
 				var handleIndexExpand = function() {
 					$('#colleft').on('click','.product-expand',function(event) {
 						event.preventDefault();
@@ -129,11 +69,20 @@
 					})		
 			
 				}
-								
+				var handleAutoClose = function() {
+					$('#panel').on('mouseover',function() {
+						clearTimeout(timer);
+					}) 
+					$('#panel').on('mouseout',function() {
+						timer = setTimeout("$('.close-slide').trigger('click')",2000)
+					}) 
+				}		
+												
 				var handleOpen = function() {
 					$(".open-slide").click(function(event){
-				    	event.preventDefault();
-	
+			
+							clearTimeout(timer) ;
+
 				        $("#panel").toggle("fast");
 				        $("#open-div").css('display','none');
 				       // $(this).toggleClass("active");
@@ -144,7 +93,10 @@
 				
 				var handleClose = function() {
 					$(".close-slide").click(function(event){
-						event.preventDefault();
+			
+
+							clearTimeout(timer) ;
+						
 						$("#panel").toggle("fast");
 						$("#open-div").css('display','block');
 						if ($('#vidplayer').data('reload') == true) {
@@ -188,6 +140,7 @@
 						handleClose();	
 						handleIndexExpand();
 						handleMenuItemClick();
+						handleAutoClose();
 					}
 				}
 			}();
@@ -203,9 +156,6 @@
 		</script>				
 	</head>
 	<body>
-		
-		
-		
 		<div id="wrap">
 		<div id="main">
 			<div id="current-section">wireless</div>
@@ -222,27 +172,24 @@
 		<div id="sidebar">
 			<div id="tool-bar">
 				<ul>
-					<li class="download"><a id="download" href="">Download Presentation</a></li>
-					<li class="slides"><a id="slide_name" href="">Quick-view Slides</a></li>
-					<li class="launch-demo"><a id="demo_url" href="">Launch Demo</a></li>
-					<li class="feedback"><a id="feedback" href="">Tell us what you think</a></li>
+					<li class="download"><a id="download" href="" target="_blank">Download Presentation</a></li>
+					<li class="slides"><a id="slide_name" href="" target="_blank">Quick-view Slides</a></li>
+					<li class="launch-demo"><a id="demo_url" href="" target="_blank">Launch Demo</a></li>
+					<li class="feedback"><a id="feedback" href="mailto:wschweitzer00@gmail.com" target="_blank">Tell us what you think</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="logo">
 				<?php echo $this->Html->image('guavus.png'); ?>
 		</div>
-	</div>
+	</div></div>
 	<div id="open-div">
 			<a class="open-slide" href="#">&gt;</a>
 		</div>
-		
 		<div id="panel">
 			<table>
 				<tr>
-					<td id="colleft">
-		
-						
+					<td id="colleft">		
 	<?php					
 		$products = array();
 		
@@ -251,7 +198,7 @@
 		foreach ($menuItems as $mitem) {
 			$cat = $mitem['category'];
 			$prod = $mitem['product'];
-			
+
 			if (isset($products[$prod][$cat]) ) {
 				
 				$products[$prod][$cat] .= "<dd><a href='#".$mitem['id']."'>".$mitem['name']."</a></dd>";
@@ -311,9 +258,11 @@
 					this.myPlayer.pause();
 					$(this.el).find('h1').html(this.model.get('name'));
 					$(this.el).find('#notes').html(this.model.get('notes'));
+					$(this.el).find('#current-section').html(this.model.get('product'));
 					$(this.el).find('#slide_name').attr('href',this.model.get('slide_name'));
 					$(this.el).find('#demo_url').attr('href',this.model.get('demo_url'));
 					$(this.el).find('#notes').html(this.model.get('notes'));
+					$(this.el).find('#download').attr('href',this.model.get('video_name'));
 					this.myPlayer.src(this.model.get('video_name'));
 					$('body').data('product',this.model.get('name'));
 					
@@ -338,6 +287,7 @@
 						$video_name = MEDIA . $mitem['video_name'];
 						$slide_name = MEDIA . $mitem['slide_name'];
 						$demo_url = $mitem['demo_url'];
+						$product = $mitem['product'];
 						
 						echo "this.slist.add({
 							id:'$id',
@@ -345,7 +295,8 @@
 							notes:$notes,
 							video_name:'$video_name',
 							slide_name:'$slide_name',
-							demo_url:'$demo_url'
+							demo_url:'$demo_url',
+							product:'$product'
 						})
 						 
 						";

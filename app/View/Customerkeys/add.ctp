@@ -53,13 +53,30 @@
 		<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
 		</div>
 		<div id="new-key">
-			<a href=""><img src="/guavus/cakephp/img/new-key-button.png" /></a>
+			<?php	
+				echo $this->Form->create('Customerkey', array('action' => 'add')); 
+				echo $this->Form->input('New Key', array('type'=>'submit','label'=>false));
+				echo $this->Form->end();
+		?>
 		</div>
 		<div id="nav">
 			<ul>
-				<li><?php echo $this->Html->image('keys-red.png'); ?></li>
-				<a href=""><li><img src="/guavus/cakephp/img/products.png" /></li></a>
-				<a href=""><li><img src="/guavus/cakephp/img/activity.png" /></li></a>
+				<li>
+					<?php echo $this->Html->image('keys-red.png'); ?>
+				</li>
+				<li>
+					<?php echo $this->Html->link( 
+					          		$this->Html->image('products.png', array('alt' => 'products')),
+					          		'../solutions',
+					          		array('escape' => false));
+					 ?>
+				<li>
+					<?php echo $this->Html->link(
+							       $this->Html->image('activity.png', array('alt' => 'activity')),
+							       '../activity',
+							       array('escape' => false));
+					?>
+				</li>
 			</ul>
 		</div>
 	</div>

@@ -22,7 +22,7 @@ class DemoController extends AppController {
 	}
 	
 	public function beforeFilter() {
-		if (!in_array($this->action,array('login','logout'),true)) {
+		if (!in_array($this->action,array('login','logout','test'),true)) {
 			$lhash = $this -> Session -> read('lhash');
 			if ($lhash == "") {
 //				$this->Session->setFlash(__('Not logged in'));
@@ -132,12 +132,22 @@ class DemoController extends AppController {
 				
 			}
 		
-        } 
-		
-	
-		
+        } 		
 	}
 	
+	public function test() {
+		//$this->layout = 'cda';
+		$this->controller->autoRender = false;
+		//$this->response->header('Content-Disposition: attachment; filename="http://ec2-50-16-21-46.compute-1.amazonaws.com/guavus/cakephp/app/webroot/media/kumar.mp4"');
+		//$this->response->type('video/mp4');
+		//$this->response->header('WWW-Authenticate: Negotiate', 'Content-type: text/html');
+		header("Content-type:video/mp4");
+		header("Content-Disposition:attachment;filename=kumar.mp4");
+		readfile("/var/www/html/guavus/cakephp/app/webroot/media/kumar.mp4");
+		
+		
+		
+	}
 	
 
 }

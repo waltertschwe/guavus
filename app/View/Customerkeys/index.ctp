@@ -31,6 +31,14 @@
 			
 
 		</script> 
+		<style type="text/css">
+			#example_length
+			{ display: none; }
+			<?php if(count($customerkeys) < 99) {  
+					echo "#example_paginate { display: none; }";
+			} ?>
+		</style> 
+
 	</head>
 <body id="dt_example">
 <div id="container" style="width:90%">	
@@ -39,19 +47,19 @@
 		 	<?php echo $this->Html->image('guavus-lounge.png', array('alt' => 'Guavus Home')); ?>
 		</div><!-- Header End -->
 		<div id="new-key">
-		 <?php	echo $this->Html->link(
-		 				$this->Html->image('new-key-button.png'),
-    					'add/',
-						array('escape' => false));
+		 <?php	
+				echo $this->Form->create('Customerkey', array('action' => 'add')); 
+				echo $this->Form->input('New Key', array('type'=>'submit','label'=>false));
+				echo $this->Form->end();
 		?>
 		</div>
 		<div id="nav">
 			<ul>
-				<li>
+				<li>	
 					<?php echo $this->Html->image('keys-red.png', array('alt' => 'keys-red')); ?>
 				</li>
 				<li>
-					<?php echo $this->Html->link( 
+					<?php  echo $this->Html->link( 
 					          		$this->Html->image('products.png', array('alt' => 'products')),
 					          		'../solutions',
 					          		array('escape' => false));
