@@ -50,7 +50,19 @@
 
     <?php foreach ($solutions as $solution): ?>
 	<tr class="gradeU">
-		 <td class="center"><?php echo $solution['Solution']['product']; ?></td>
+		 <td class="center"><?php $productName = $solution['Solution']['product']; 
+		 
+		 	if($productName == "Wireless") {
+		 		echo $this->Html->image('wifi.png');
+		 	}
+			if($productName == "Broadband") {
+		 		echo $this->Html->image('signal.png');
+		 	}
+			if($productName == "Cable") {
+		 		echo $this->Html->image('tv.png');
+		 	}
+		 	
+		 	?></td>
 		<td>
 			 <?php 
 			 	echo $this->Html->link($solution['Solution']['name'], array('action' => 'edit', $solution['Solution']['id']));?> 		

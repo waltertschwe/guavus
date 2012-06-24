@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>Customer Keys</title>
+		<title>Activity</title>
 		<?php echo $this->Html->css('datatables_page.css');
 		      echo $this->Html->css('datatables_table.css');
 			  echo $this->Html->css('core.css');
@@ -91,8 +91,18 @@
 
 <?php foreach ($data as $activity) { ?>
 	<tr class="gradeU">
- 		<td class="center"><?php echo $activity['Activity']['solution']; ?></td>
- 		<td class="center"><?php echo $activity['Activity']['accesskey']; ?></td>
+ 		<td class="center"><?php 
+ 			echo $activity['Activity']['solution_name']; 
+ 			//$solution = $this->Solution->find('first', array('conditions' => array('id' => $solution_id)));
+ 			//$solutionName = $solution['Solution']['name'];
+ 			?></td>
+ 		<td class="center"><?php 
+ 			echo $activity['Activity']['customerkey'];
+			//$keyData = $this->Customerkey->find('first',array('conditions'=>array('accesskey'=>$key)));
+			//var_dump($keyData);
+ 			//$customerkey_id =  $activity['Activity']['customerkey_id']; ?>
+ 		
+ 		</td>
  		<td class="center">
  			<?php 
 				$logDate = $activity['Activity']['date']; 
@@ -129,7 +139,7 @@
 					}
 				
 					if($isEmail) {
-						echo $this->Html->image('email.png');
+						echo $this->Html->image('feedback.png');
 					}	
 				?>
 				</ul>

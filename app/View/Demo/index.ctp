@@ -60,9 +60,14 @@
 			guavusdisp.slide = function() {
 				var vplayer = "";
 				var timer = "";
+				var slidestate = "";
+	
+
+				
 				var handleIndexExpand = function() {
 					$('#colleft').on('click','.product-expand',function(event) {
 						event.preventDefault();
+						$('#panel').find('.prod-items').hide();
 						$(this).closest('.prod-group').find('.prod-items').toggle('fast');
 				
 				
@@ -70,22 +75,32 @@
 			
 				}
 				var handleAutoClose = function() {
-					$('#panel').on('mouseover',function() {
-						clearTimeout(timer);
+					$('#panel table').on('mouseenter',function() {
+						if (timer) clearTimeout(timer);
+						console.log(timer);
 					}) 
-					$('#panel').on('mouseout',function() {
-						timer = setTimeout("$('.close-slide').trigger('click')",2000)
+					$('#panel table').on('mouseleave',function() {
+					
+						if (slidestate != 'close') {
+								timer = setTimeout("$('.close-slide').trigger('click')", 2000)
+								
+							}
+						console.log(timer);
+	
 					}) 
 				}		
 												
 				var handleOpen = function() {
 					$(".open-slide").click(function(event){
 			
-							clearTimeout(timer) ;
+						if (timer) clearTimeout(timer);
+
 
 				        $("#panel").toggle("fast");
 				        $("#open-div").css('display','none');
-				       // $(this).toggleClass("active");
+						slidestate = 'open';
+
+
 				        return false;
 				    });
 					
@@ -95,7 +110,8 @@
 					$(".close-slide").click(function(event){
 			
 
-							clearTimeout(timer) ;
+						if (timer) clearTimeout(timer);
+
 						
 						$("#panel").toggle("fast");
 						$("#open-div").css('display','block');
@@ -103,6 +119,9 @@
 							$('#vidplayer').data('reload',false);
 							vplayer.play();
 						}	
+						slidestate = 'close';
+
+
 						return false;
 					});
 					
@@ -175,7 +194,7 @@
 					<li class="download"><a id="download" href="" target="_blank">Download Presentation</a></li>
 					<li class="slides"><a id="slide_name" href="" target="_blank">Quick-view Slides</a></li>
 					<li class="launch-demo"><a id="demo_url" href="" target="_blank">Launch Demo</a></li>
-					<li class="feedback"><a id="feedback" href="mailto:wschweitzer00@gmail.com" target="_blank">Tell us what you think</a></li>
+					<li class="feedback"><a id="feedback" href="" target="_blank">Tell us what you think</a></li>
 				</ul>
 			</div>
 		</div>
@@ -184,10 +203,10 @@
 		</div>
 	</div></div>
 	<div id="open-div">
-			<a class="open-slide" href="#">&gt;</a>
+			<a class="open-slide" href="#"><?echo $this->Html->image('open-arrow.png'); ?></a>
 		</div>
 		<div id="panel">
-			<table>
+		<table>
 				<tr>
 					<td id="colleft">		
 	<?php					
@@ -223,18 +242,21 @@
 				$prod
 				";
 			}
-			
+			$closeImage = $this->Html->image('close-arrow.png');
 			$disp .= "<div class='prod-group'>
 						<a href='#' class='product-expand'>$prodkey</a>
 						<dl class='prod-items'>
 							$catdisp
+							<a href='#' class='close-slide'>$closeImage</a>
+
+							
 						</dl>
 					</div>";
 		}
 		echo $disp;					
 		?>				
 					</td>
-					<td id="colright"><a href="#" class="close-slide">&lt;</a></td>
+					
 				</tr>
 			</table>
 				
@@ -251,21 +273,45 @@
 				})			
 
 			var SolutionView = Backbone.View.extend({
-		
+			
 				el:'#wrap', 
 				myPlayer:_V_("vidplayer"),
-				render:function(id) {
-					this.myPlayer.pause();
+				nextLink:function() {
+					
+					var id = this.model.get('id');
+					var nextInd = itemOrderList['#' + id] +1;
+					if (nextInd < itemsList.length -1 ) {
+						console.log($(itemsList[nextInd]).text());
+					}
+						
+
+					
+				},
+				render:function() {
+					var logpath = '<?php echo $this->Html->url(array('action'=>'logdata','controller'=>'activity'));?>'
+					var mediaPath = '<?php echo MEDIA;?>';
+					var product_id = this.model.get('id');
+					var customerkey_id ='<?php echo $customerkey_id ?>'; 
+					var middle = '/' + customerkey_id + '/' + product_id +'?resource=';
+					this.myPlayer.pause(); 
 					$(this.el).find('h1').html(this.model.get('name'));
 					$(this.el).find('#notes').html(this.model.get('notes'));
-					$(this.el).find('#current-section').html(this.model.get('product'));
-					$(this.el).find('#slide_name').attr('href',this.model.get('slide_name'));
-					$(this.el).find('#demo_url').attr('href',this.model.get('demo_url'));
-					$(this.el).find('#notes').html(this.model.get('notes'));
-					$(this.el).find('#download').attr('href',this.model.get('video_name'));
-					this.myPlayer.src(this.model.get('video_name'));
-					$('body').data('product',this.model.get('name'));
 					
+					$(this.el).find('#current-section').html(this.model.get('product'));
+/*
+					$(this.el).find('#download').attr('href',mediaPath +this.model.get('video_name'));					
+					$(this.el).find('#slide_name').attr('href',mediaPath +this.model.get('slide_name'));
+					$(this.el).find('#demo_url').attr('href',this.model.get('demo_url'));
+*/			
+					$(this.el).find('#download').attr('href',logpath + '/'+ 1 + middle + encodeURIComponent(this.model.get('video_name')));					
+					$(this.el).find('#slide_name').attr('href',logpath + '/' +2  + middle +encodeURIComponent(this.model.get('slide_name')));
+					$(this.el).find('#demo_url').attr('href',logpath + '/' + 3 + middle +encodeURIComponent(this.model.get('demo_url')));
+					$(this.el).find('#feedback').attr('href',logpath + '/' + 4 + middle +encodeURIComponent('mailto:wschweitzer00@gmail.com'));
+					
+
+					this.myPlayer.src(mediaPath +this.model.get('video_name'));
+					$('body').data('product',this.model.get('name'));
+					this.nextLink();
 					
 //					$(this.el).find('video>source')[0].src = this.model.get('video_name');
 //					$(this.el).find('video')[0].load();
@@ -284,8 +330,11 @@
 						$id = $mitem['id'];
 						$name = $mitem['name'];	
 						$notes = json_encode($mitem['notes']);
-						$video_name = MEDIA . $mitem['video_name'];
-						$slide_name = MEDIA . $mitem['slide_name'];
+//						$video_name = MEDIA . $mitem['video_name'];
+//						$slide_name = MEDIA . $mitem['slide_name'];
+						$video_name =  $mitem['video_name'];
+						$slide_name =  $mitem['slide_name'];
+				
 						$demo_url = $mitem['demo_url'];
 						$product = $mitem['product'];
 						
@@ -306,6 +355,7 @@
 				
 			},
 				changeSolution: function(id) {
+					
 					sview = new SolutionView({model:this.slist.get(id)});
 					
 					sview.render();
@@ -317,7 +367,16 @@
 					sview.render();	
 				}
 			});
+			
+			var itemsList = "";
+			var itemOrderList = {};
 			$(document).ready(function(){
+				itemsList = $('.prod-items a');
+				itemOrderList = {};
+				$.each(itemsList, function(i,el) {
+					itemOrderList[$(el).attr('href')] = i; 
+				} )
+
 				new SolutionRouter();
 				Backbone.history.start();
 

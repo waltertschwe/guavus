@@ -19,6 +19,8 @@ class DemoController extends AppController {
 		$menuItems = $customerkey['Solution'];
 		$this->set('menuItems',$menuItems);
 		$this->set('accesskey',$customerkey['Customerkey']['accesskey']);	
+		$this->set('customerkey_id',$customerkey['Customerkey']['id']);
+		
 	}
 	
 	public function beforeFilter() {
@@ -66,13 +68,9 @@ class DemoController extends AppController {
 				$this->Session->setFlash(__('Invalid key'));	
 				$this->redirect(array('action' => 'login'));		
 							
-			}
-
-				
+			}				
 		}
-		
 	}
-	
 	
 	public function solution($id) {
 		#need to work on not displaying solutions  for not valid customers
@@ -136,18 +134,12 @@ class DemoController extends AppController {
 	}
 	
 	public function test() {
-		//$this->layout = 'cda';
+		
 		$this->controller->autoRender = false;
-		//$this->response->header('Content-Disposition: attachment; filename="http://ec2-50-16-21-46.compute-1.amazonaws.com/guavus/cakephp/app/webroot/media/kumar.mp4"');
-		//$this->response->type('video/mp4');
-		//$this->response->header('WWW-Authenticate: Negotiate', 'Content-type: text/html');
 		header("Content-type:video/mp4");
 		header("Content-Disposition:attachment;filename=kumar.mp4");
 		readfile("/var/www/html/guavus/cakephp/app/webroot/media/kumar.mp4");
-		
-		
-		
-	}
 	
+	}	
 
 }

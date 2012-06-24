@@ -179,27 +179,26 @@ body {
 	height: 36px;
 	padding-left: 45px;
 	line-height: 36px;
-	background: url('/guavus/cakephp/app/webroot/img/tool-bar-sprites.png') no-repeat 0 0;
 	text-decoration: none;
 }
 
 #tool-bar .download a {
-	background-position: 0 5px;
+	background: url('/guavus/cakephp/app/webroot/img/download.png') no-repeat 0 0;
 }
 
-
 #tool-bar .slides a {
-	background-position: 0 -48px;
+	background: url('/guavus/cakephp/app/webroot/img/slides.png') no-repeat 0 0;
+	padding-left: 50px;
 }
 
 #tool-bar .launch-demo a {
-	background-position: 0 -95px;
+	background: url('/guavus/cakephp/app/webroot/img/demo-video.png') no-repeat 0 0;
+	padding-left: 50px;
 }
 
 #tool-bar .feedback a {
-	background-position: 0 -146px;
+	background: url('/guavus/cakephp/app/webroot/img/feedback.png') no-repeat 0 0;
 }
-
 .seconardy-page .logo {
 	clear: both;
 	position: absolute;
@@ -239,8 +238,6 @@ body {
 	width:250px;
 	z-index:10000;
 	opacity: 1;		
-	border:1px solid #111111;
-	padding-left:10px;
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
 	-moz-border-radius-topright: 20px; 
@@ -275,6 +272,56 @@ body {
 	width:95%;
 }
 
+#panel .prod-group {
+	border: 2px solid #a1a1a1;
+	padding:25px 25px 25px 20px;
+	-webkit-border-radius: 5px 25px 25px 5px;
+	-moz-border-radius: 5px 25px 25px 5px;
+	border-radius: 5px 25px 25px 5px;
+	width: 300px;
+	background: #fff;
+}
 
+#panel .prod-items {
 
+	position: relative;
+	padding-right: 60px; 
+}
 
+#panel .product-expand {
+	font-size: 14px;
+	display: inline-block;
+	margin-bottom: 15px;
+	text-decoration: none;
+	color: #ccc;
+}
+
+#panel dt {
+	font-size: 18px;
+    font-weight: bold;
+	text-indent: -15px;
+	margin-bottom: 15px;
+}
+
+#panel dd  {
+	margin-bottom: 15px;
+	color: #000;
+}
+
+#panel dd a {
+	color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+	text-decoration: none;
+}
+
+#panel .close-slide {
+	display: inline-block;
+	position: absolute;
+	top: 15%;
+	right: -25px;
+}
+
+#panel #colleft .prod-group:first-child .prod-items {
+	display: block;
+}
